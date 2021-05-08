@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { RandomizedDepthFirst } from './algorithms/RandomizedDepthFirst';
+import { BinaryTree } from './algorithms/BinaryTree';
+import { Helper } from './algorithms/utility/helper';
 
 @Component({
   selector: 'app-root',
@@ -9,11 +11,20 @@ import { RandomizedDepthFirst } from './algorithms/RandomizedDepthFirst';
 export class AppComponent implements OnInit {
   title = 'MazeGeneratorAndSolver';
 
-  constructor(private randomizedDepthFirst: RandomizedDepthFirst) {}
+  constructor(
+    private randomizedDepthFirst: RandomizedDepthFirst,
+    private binaryTree: BinaryTree
+  ) {}
 
   width = 15;
 
   height = 15;
+
+  animateSpeed = 0;
+
+  isAnimating = false;
+
+  isAlgorithmSet = false;
 
   length: number[] = [];
 
@@ -27,6 +38,12 @@ export class AppComponent implements OnInit {
     this.length = Array.from(Array(this.width * this.height).keys());
   }
 
+  resetAll() {
+    this.isAlgorithmSet = false;
+    this.isAnimating = false;
+    this.resetMaze();
+  }
+
   resetMaze() {
     for (let i = 0; i < this.length.length; i++) {
       const boxId = this.length[i];
@@ -36,7 +53,8 @@ export class AppComponent implements OnInit {
   }
 
   setWidth(width: string) {
-    this.resetMaze();
+    this.traversalArray = [];
+    this.resetAll();
     this.width = Number(width);
     let el = document.getElementById('maze');
 
@@ -48,23 +66,31 @@ export class AppComponent implements OnInit {
   }
 
   setHeight(height: string) {
-    this.resetMaze();
+    this.traversalArray = [];
+    this.resetAll();
     this.height = Number(height);
     this.setLength();
   }
 
-  createMaze() {
+  createRandomizedDFSMaze() {
+    this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
       this.width,
       this.height,
       this.traversalArray
     );
+    this.isAlgorithmSet = true;
+  }
+
+  createBinarySearchMaze() {
+    this.traversalArray = [];
+    this.binaryTree.createMaze(this.width, this.height, this.traversalArray);
+    this.isAlgorithmSet = true;
   }
 
   async animate() {
-    this.resetMaze();
-    this.createMaze();
-
+    this.resetAll();
+    this.isAnimating = true;
     for (let i = 0; i < this.traversalArray.length; i++) {
       const traversal = this.traversalArray[i];
 
@@ -72,12 +98,14 @@ export class AppComponent implements OnInit {
       const toCell = traversal[1];
       const direction = traversal[2];
 
-      const directionStringArr = this.getDirectionStringArr(direction);
+      const directionStringArr = Helper.getDirectionStringArr(direction);
 
+      await new Promise((r) => setTimeout(r, this.animateSpeed));
       if (traversal.length == 4) {
         document
           .getElementById('box' + fromCell)
           ?.classList.add(directionStringArr[0] + 'border-collapse-black');
+        await new Promise((r) => setTimeout(r, this.animateSpeed));
         document
           .getElementById('box' + toCell)
           ?.classList.add(directionStringArr[1] + 'border-collapse-black');
@@ -85,27 +113,12 @@ export class AppComponent implements OnInit {
         document
           .getElementById('box' + fromCell)
           ?.classList.add(directionStringArr[0] + 'border-collapse');
+        await new Promise((r) => setTimeout(r, this.animateSpeed));
         document
           .getElementById('box' + toCell)
           ?.classList.add(directionStringArr[1] + 'border-collapse');
       }
-      await new Promise((r) => setTimeout(r, 0));
     }
-
-    this.traversalArray = [];
-  }
-
-  getDirectionStringArr(direction: number) {
-    let arr = [];
-
-    if (direction == 1) arr.push('top-', 'bottom-');
-
-    if (direction == 2) arr.push('right-', 'left-');
-
-    if (direction == 3) arr.push('bottom-', 'top-');
-
-    if (direction == 4) arr.push('left-', 'right-');
-
-    return arr;
+    this.isAnimating = false;
   }
 }

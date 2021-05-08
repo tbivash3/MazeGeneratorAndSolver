@@ -71,6 +71,20 @@ export class Helper {
     return direction;
   }
 
+  static getDirectionStringArr(direction: number) {
+    let arr = [];
+
+    if (direction == 1) arr.push('top-', 'bottom-');
+
+    if (direction == 2) arr.push('right-', 'left-');
+
+    if (direction == 3) arr.push('bottom-', 'top-');
+
+    if (direction == 4) arr.push('left-', 'right-');
+
+    return arr;
+  }
+
   static shuffle(array: number[]) {
     let currentIndex = array.length;
     let temporaryValue;

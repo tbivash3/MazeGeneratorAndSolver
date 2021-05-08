@@ -1,12 +1,42 @@
 <div id="mainContainer">
   <div class="sideContainer">
+    <button
+      [disabled]="isAnimating || isAlgorithmSet"
+      (click)="createRandomizedDFSMaze()"
+    >
+      Randomized Depth First
+    </button>
+    <button
+      [disabled]="isAnimating || isAlgorithmSet"
+      (click)="createBinarySearchMaze()"
+    >
+      Binary Tree
+    </button>
+  </div>
+
+  <div id="mazeContainer">
+    <div id="maze">
+      <ng-container *ngFor="let i of length">
+        <div id="{{ 'box' + i }}" class="box"></div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="sideContainer">
+    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="animate()">
+      Animate
+    </button>
+    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="resetAll()">
+      Reset
+    </button>
+
     <div class="slideContainer">
       <div class="slide">
         <p>Width:</p>
         <input
           #width
+          [disabled]="isAnimating || isAlgorithmSet"
           type="range"
-          min="5"
+          min="10"
           max="35"
           value="20"
           class="slider"
@@ -18,8 +48,9 @@
         <p>Height:</p>
         <input
           #height
+          [disabled]="isAnimating || isAlgorithmSet"
           type="range"
-          min="5"
+          min="10"
           max="35"
           value=""
           class="slider"
@@ -27,17 +58,5 @@
         />
       </div>
     </div>
-  </div>
-
-  <div id="mazeContainer">
-    <div id="maze">
-      <ng-container *ngFor="let i of length">
-        <div id="{{ 'box' + i }}" class="box"></div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="sideContainer">
-    <button (click)="animate()">Animate</button>
-    <button (click)="resetMaze()">Reset</button>
   </div>
 </div>
