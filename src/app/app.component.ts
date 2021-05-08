@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RandomizedDepthFirst } from './algorithms/RandomizedDepthFirst';
 import { BinaryTree } from './algorithms/BinaryTree';
 import { Helper } from './algorithms/utility/helper';
+import { RandomizedKruskal } from "./algorithms/RandomizerKruskal's";
 
 @Component({
   selector: 'app-root',
@@ -13,7 +14,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private randomizedDepthFirst: RandomizedDepthFirst,
-    private binaryTree: BinaryTree
+    private binaryTree: BinaryTree,
+    private randomizedKruskal: RandomizedKruskal
   ) {}
 
   width = 15;
@@ -85,6 +87,16 @@ export class AppComponent implements OnInit {
   createBinarySearchMaze() {
     this.traversalArray = [];
     this.binaryTree.createMaze(this.width, this.height, this.traversalArray);
+    this.isAlgorithmSet = true;
+  }
+
+  createRandomizedKruskalMaze() {
+    this.traversalArray = [];
+    this.randomizedKruskal.createMaze(
+      this.width,
+      this.height,
+      this.traversalArray
+    );
     this.isAlgorithmSet = true;
   }
 

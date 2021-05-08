@@ -12,6 +12,13 @@
     >
       Binary Tree
     </button>
+
+    <button
+      [disabled]="isAnimating || isAlgorithmSet"
+      (click)="createRandomizedKruskalMaze()"
+    >
+      Randomized Kruskal
+    </button>
   </div>
 
   <div id="mazeContainer">

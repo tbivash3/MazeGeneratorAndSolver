@@ -20,6 +20,7 @@ export class BinaryTree {
     let direction = Math.floor(Math.random() * 2);
 
     if (direction == 0 && !Helper.isRightColumnElement(width, currentCell)) {
+      traversalArray.push([currentCell, currentCell + 1, Helper.RIGHT]);
       traversalArray.push([currentCell, currentCell + 1, Helper.RIGHT, 1]);
     } else {
       if (!Helper.isBottomRowElement(width, height, currentCell)) {
@@ -31,6 +32,7 @@ export class BinaryTree {
         ]);
       } else {
         if (currentCell != width * height - 1) {
+          traversalArray.push([currentCell, currentCell + 1, Helper.RIGHT]);
           traversalArray.push([currentCell, currentCell + 1, Helper.RIGHT, 1]);
         }
       }
