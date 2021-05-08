@@ -1,16 +1,37 @@
-#boxContainer {
-  margin: 60px auto;
-  width: 1000px;
+#mainContainer {
+  border: 5px solid red;
+  display: flex;
+  justify-content: space-evenly;
+  margin: 100px;
+  max-height: 1000px;
+  background-color: antiquewhite;
+}
+
+#mazeContainer {
+  min-width: 1000px;
+  display: flex;
+  justify-content: center;
+}
+
+#maze {
+  border: 5px solid black;
+  width: 405px;
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
 }
 
+.sideContainer {
+  border: 5px solid orchid;
+  width: 200px;
+  padding: 0 50px 0 50px;
+}
+
 .box {
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   background-color: green;
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 .right-border-collapse {
@@ -31,4 +52,29 @@
 .bottom-border-collapse {
   border-bottom-color: blue;
   background-color: blue;
+}
+
+.right-border-collapse-black {
+  border-right-color: black;
+  background-color: black;
+}
+
+.left-border-collapse-black {
+  border-left-color: black;
+  background-color: black;
+}
+
+.top-border-collapse-black {
+  border-top-color: black;
+  background-color: black;
+}
+
+.bottom-border-collapse-black {
+  border-bottom-color: black;
+  background-color: black;
+}
+
+.reset-box {
+  background-color: green;
+  border-color: white;
 }

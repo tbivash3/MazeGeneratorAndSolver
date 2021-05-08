@@ -1,5 +1,43 @@
-<div id="boxContainer">
-  <ng-container *ngFor="let i of length">
-    <div id="{{ 'box' + i }}" class="box"></div>
-  </ng-container>
+<div id="mainContainer">
+  <div class="sideContainer">
+    <div class="slideContainer">
+      <div class="slide">
+        <p>Width:</p>
+        <input
+          #width
+          type="range"
+          min="5"
+          max="35"
+          value="20"
+          class="slider"
+          (input)="setWidth(width.value)"
+        />
+      </div>
+
+      <div class="slide">
+        <p>Height:</p>
+        <input
+          #height
+          type="range"
+          min="5"
+          max="35"
+          value=""
+          class="slider"
+          (input)="setHeight(height.value)"
+        />
+      </div>
+    </div>
+  </div>
+
+  <div id="mazeContainer">
+    <div id="maze">
+      <ng-container *ngFor="let i of length">
+        <div id="{{ 'box' + i }}" class="box"></div>
+      </ng-container>
+    </div>
+  </div>
+  <div class="sideContainer">
+    <button (click)="animate()">Animate</button>
+    <button (click)="resetMaze()">Reset</button>
+  </div>
 </div>
