@@ -22,7 +22,7 @@ export class AppComponent implements OnInit {
 
   height = 15;
 
-  animateSpeed = 0;
+  animateSpeed = 50;
 
   isAnimating = false;
 
