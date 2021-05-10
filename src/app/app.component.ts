@@ -20,9 +20,9 @@ export class AppComponent implements OnInit {
     private randomizedPrim: RandomizedPrim
   ) {}
 
-  width = 15;
+  width = 22;
 
-  height = 15;
+  height = 22;
 
   animateSpeed = 10;
 
