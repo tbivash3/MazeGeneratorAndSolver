@@ -3,6 +3,7 @@ import { RandomizedDepthFirst } from './algorithms/RandomizedDepthFirst';
 import { BinaryTree } from './algorithms/BinaryTree';
 import { Helper } from './algorithms/utility/helper';
 import { RandomizedKruskal } from "./algorithms/RandomizerKruskal's";
+import { RandomizedPrim } from './algorithms/RandomizedPrim';
 
 @Component({
   selector: 'app-root',
@@ -15,14 +16,15 @@ export class AppComponent implements OnInit {
   constructor(
     private randomizedDepthFirst: RandomizedDepthFirst,
     private binaryTree: BinaryTree,
-    private randomizedKruskal: RandomizedKruskal
+    private randomizedKruskal: RandomizedKruskal,
+    private randomizedPrim: RandomizedPrim
   ) {}
 
   width = 15;
 
   height = 15;
 
-  animateSpeed = 50;
+  animateSpeed = 10;
 
   isAnimating = false;
 
@@ -93,6 +95,16 @@ export class AppComponent implements OnInit {
   createRandomizedKruskalMaze() {
     this.traversalArray = [];
     this.randomizedKruskal.createMaze(
+      this.width,
+      this.height,
+      this.traversalArray
+    );
+    this.isAlgorithmSet = true;
+  }
+
+  createRandomizedPrimsMaze() {
+    this.traversalArray = [];
+    this.randomizedPrim.createMaze(
       this.width,
       this.height,
       this.traversalArray

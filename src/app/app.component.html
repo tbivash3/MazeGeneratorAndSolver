@@ -19,6 +19,13 @@
     >
       Randomized Kruskal
     </button>
+
+    <button
+      [disabled]="isAnimating || isAlgorithmSet"
+      (click)="createRandomizedPrimsMaze()"
+    >
+      Randomized Prim
+    </button>
   </div>
 
   <div id="mazeContainer">
