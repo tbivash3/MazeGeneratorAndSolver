@@ -43,7 +43,6 @@
 }
 
 .slide p {
-  color: bisque;
   font-size: 19px;
 }
 
@@ -51,8 +50,7 @@
   width: 180px;
 }
 
-button:hover:enabled,
-button:focus:enabled {
+button:hover:enabled {
   box-shadow: 0 0.5em 0.5em -0.4em red;
   transform: translateY(-0.25em);
 }
@@ -108,3 +106,12 @@ button:focus:enabled {
   background-color: green;
   border-color: white;
 }
+
+.boxPath {
+  background-color: green;
+}
+
+.bestPath {
+  background-color: yellow;
+}
+

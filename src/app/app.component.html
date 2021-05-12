@@ -26,6 +26,12 @@
     >
       Randomized Prim
     </button>
+
+    <button
+    (click)="createNodeGraph()"
+  >
+    Randomized Prim
+  </button>
   </div>
 
   <div id="mazeContainer">
@@ -36,12 +42,10 @@
     </div>
   </div>
   <div class="sideContainer">
-    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="animate()">
+    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="animateMazeGeneration()">
       Animate
     </button>
-    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="resetAll()">
-      Reset
-    </button>
+    <button [disabled]="isAnimating" (click)="resetAll()">Reset</button>
 
     <div class="slideContainer">
       <div class="slide">

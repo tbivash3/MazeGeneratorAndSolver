@@ -76,6 +76,102 @@ export class AppComponent implements OnInit {
     this.setLength();
   }
 
+  createNodeGraph() {
+
+    let graph = new Map();
+
+    this.traversalArray.forEach((data) => {
+      if(data.length == 4) {
+
+        const fromNode = data[0];
+        const toNode = data[1];
+        const direction = data[2];
+
+        if(graph.has(fromNode)) {
+          graph.get(fromNode).add(toNode);
+          graph.get(fromNode).add(direction);
+        } else {
+          graph.set(fromNode, new Set());
+          graph.get(fromNode).add(toNode);
+          graph.get(fromNode).add(direction);
+        }
+
+        if(graph.has(toNode)) {
+          graph.get(toNode).add(fromNode);
+          graph.get(toNode).add(direction);
+        } else {
+          graph.set(toNode, new Set());
+          graph.get(toNode).add(fromNode);
+          graph.get(toNode).add(direction);
+        }
+
+      }
+    })
+
+    this.bfs(graph);
+    console.log(graph)
+  }
+
+  bfs(graph: Map<number, Set<number>>) {
+
+    let path: number[] = [];
+
+    let bestRoute = new Map();
+    let visited = new Set();
+
+    let frontier:number[] = [];
+
+    frontier.push(0);
+    
+
+    let parent: number | undefined = -1;
+
+    while(frontier.length > 0) {
+
+      const node = frontier.shift();
+      
+      path.push(node === undefined ? 0 : node);
+
+      bestRoute.set(node, parent);
+
+      parent = node;
+      
+      if(node === (this.width * this.height -1)) break;
+
+      visited.add(node);
+
+     
+      if( node !== undefined) {
+
+        graph.get(node)?.forEach(adjacentNode => {
+
+          if(!visited.has(adjacentNode)) {
+            frontier.push(adjacentNode);
+          }
+
+        })
+      }
+
+    }
+
+    let bestPath: number[] = []
+
+    while(parent !== -1) {
+
+      if(parent !== undefined) {
+        bestPath.push(parent);
+      }
+      
+      parent = bestRoute.get(parent);
+
+    }
+
+    console.log(path)
+
+    this.animatePathFinder(path, bestPath);
+
+  }
+
   createRandomizedDFSMaze() {
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
@@ -112,7 +208,36 @@ export class AppComponent implements OnInit {
     this.isAlgorithmSet = true;
   }
 
-  async animate() {
+  async animatePathFinder(path: number[], bestPath: number[]) {
+
+    for (let i = 0; i < path.length; i++) {
+
+      const node = path[i];
+      const domElement = document.getElementById('box' + node);
+
+      if(domElement !== null) {
+        domElement.classList.add('boxPath')
+      }
+
+      await new Promise((r) => setTimeout(r, this.animateSpeed));
+    }
+
+    bestPath.reverse();
+
+    for (let i = 0; i < bestPath.length; i++) {
+
+      const node = bestPath[i];
+      const domElement = document.getElementById('box' + node);
+
+      if(domElement !== null) {
+        domElement.classList.add('bestPath')
+      }
+
+      await new Promise((r) => setTimeout(r, this.animateSpeed));
+    }
+  }
+
+  async animateMazeGeneration() {
     this.resetAll();
     this.isAnimating = true;
     for (let i = 0; i < this.traversalArray.length; i++) {
