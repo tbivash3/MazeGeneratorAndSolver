@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Helper } from './utility/helper';
+import { Helper } from '../utility/helper';
 
 @Injectable({ providedIn: 'root' })
 export class RandomizedDepthFirst {

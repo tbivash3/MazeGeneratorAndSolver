@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RandomizedDepthFirst } from './algorithms/RandomizedDepthFirst';
-import { BinaryTree } from './algorithms/BinaryTree';
+import { RandomizedDepthFirst } from './algorithms/mazeGeneration/RandomizedDepthFirst';
+import { BinaryTree } from './algorithms/mazeGeneration/BinaryTree';
 import { Helper } from './algorithms/utility/helper';
-import { RandomizedKruskal } from "./algorithms/RandomizerKruskal's";
-import { RandomizedPrim } from './algorithms/RandomizedPrim';
+import { RandomizedKruskal } from "./algorithms/mazeGeneration/RandomizerKruskal's";
+import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
+import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 
 @Component({
   selector: 'app-root',
@@ -17,7 +18,8 @@ export class AppComponent implements OnInit {
     private randomizedDepthFirst: RandomizedDepthFirst,
     private binaryTree: BinaryTree,
     private randomizedKruskal: RandomizedKruskal,
-    private randomizedPrim: RandomizedPrim
+    private randomizedPrim: RandomizedPrim,
+    private breadthFirstSearch: BreadthFirstSearch
   ) {}
 
   width = 22;
@@ -76,102 +78,7 @@ export class AppComponent implements OnInit {
     this.setLength();
   }
 
-  createNodeGraph() {
-
-    let graph = new Map();
-
-    this.traversalArray.forEach((data) => {
-      if(data.length == 4) {
-
-        const fromNode = data[0];
-        const toNode = data[1];
-        const direction = data[2];
-
-        if(graph.has(fromNode)) {
-          graph.get(fromNode).add(toNode);
-          graph.get(fromNode).add(direction);
-        } else {
-          graph.set(fromNode, new Set());
-          graph.get(fromNode).add(toNode);
-          graph.get(fromNode).add(direction);
-        }
-
-        if(graph.has(toNode)) {
-          graph.get(toNode).add(fromNode);
-          graph.get(toNode).add(direction);
-        } else {
-          graph.set(toNode, new Set());
-          graph.get(toNode).add(fromNode);
-          graph.get(toNode).add(direction);
-        }
-
-      }
-    })
-
-    this.bfs(graph);
-    console.log(graph)
-  }
-
-  bfs(graph: Map<number, Set<number>>) {
-
-    let path: number[] = [];
-
-    let bestRoute = new Map();
-    let visited = new Set();
-
-    let frontier:number[] = [];
-
-    frontier.push(0);
-    
-
-    let parent: number | undefined = -1;
-
-    while(frontier.length > 0) {
-
-      const node = frontier.shift();
-      
-      path.push(node === undefined ? 0 : node);
-
-      bestRoute.set(node, parent);
-
-      parent = node;
-      
-      if(node === (this.width * this.height -1)) break;
-
-      visited.add(node);
-
-     
-      if( node !== undefined) {
-
-        graph.get(node)?.forEach(adjacentNode => {
-
-          if(!visited.has(adjacentNode)) {
-            frontier.push(adjacentNode);
-          }
-
-        })
-      }
-
-    }
-
-    let bestPath: number[] = []
-
-    while(parent !== -1) {
-
-      if(parent !== undefined) {
-        bestPath.push(parent);
-      }
-      
-      parent = bestRoute.get(parent);
-
-    }
-
-    console.log(path)
-
-    this.animatePathFinder(path, bestPath);
-
-  }
-
+  
   createRandomizedDFSMaze() {
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
@@ -208,6 +115,12 @@ export class AppComponent implements OnInit {
     this.isAlgorithmSet = true;
   }
 
+
+  bfs() {
+    let frontier = this.breadthFirstSearch.findPath(0, this.width * this.height - 1, this.traversalArray );
+    this.animatePathFinder([], frontier);
+  }
+
   async animatePathFinder(path: number[], bestPath: number[]) {
 
     for (let i = 0; i < path.length; i++) {
@@ -222,15 +135,16 @@ export class AppComponent implements OnInit {
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }
 
-    bestPath.reverse();
-
-    for (let i = 0; i < bestPath.length; i++) {
+    for (let i = 0; i < bestPath.length; i+=2) {
 
       const node = bestPath[i];
       const domElement = document.getElementById('box' + node);
 
       if(domElement !== null) {
-        domElement.classList.add('bestPath')
+        const directionStringArr = Helper.getDirectionStringArr(bestPath[i + 1]);
+        console.log(directionStringArr);
+        domElement.classList.add(directionStringArr[0] + 'border-collapse-yellow');
+        domElement.classList.add(directionStringArr[1] + 'border-collapse-yellow');
       }
 
       await new Promise((r) => setTimeout(r, this.animateSpeed));

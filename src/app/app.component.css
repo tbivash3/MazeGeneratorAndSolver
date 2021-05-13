@@ -107,11 +107,22 @@ button:hover:enabled {
   border-color: white;
 }
 
-.boxPath {
-  background-color: green;
-}
-
-.bestPath {
+.right-border-collapse-yellow {
+  border-right-color: yellow;
   background-color: yellow;
 }
 
+.left-border-collapse-yellow {
+  border-left-color: yellow;
+  background-color: yellow;
+}
+
+.top-border-collapse-yellow {
+  border-top-color: yellow;
+  background-color: yellow;
+}
+
+.bottom-border-collapse-yellow {
+  border-bottom-color: yellow;
+  background-color: yellow;
+}

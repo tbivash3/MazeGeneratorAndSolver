@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { FormControlDirective } from '@angular/forms';
-import { Helper } from './utility/helper';
+import { Helper } from '../utility/helper';
 
 @Injectable({ providedIn: 'root' })
 export class RandomizedPrim {
