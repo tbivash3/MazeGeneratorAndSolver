@@ -107,22 +107,43 @@ button:hover:enabled {
   border-color: white;
 }
 
-.right-border-collapse-yellow {
-  border-right-color: yellow;
-  background-color: yellow;
+.right-border-collapse-all-paths {
+  border-right-color: rgb(185, 83, 83);
+  background-color: rgb(185, 83, 83);
 }
 
-.left-border-collapse-yellow {
-  border-left-color: yellow;
-  background-color: yellow;
+.left-border-collapse-all-paths {
+  border-left-color:  rgb(185, 83, 83);
+  background-color:  rgb(185, 83, 83);
 }
 
-.top-border-collapse-yellow {
-  border-top-color: yellow;
-  background-color: yellow;
+.top-border-collapse-all-paths {
+  border-top-color:  rgb(185, 83, 83);
+  background-color:  rgb(185, 83, 83);
 }
 
-.bottom-border-collapse-yellow {
-  border-bottom-color: yellow;
-  background-color: yellow;
+.bottom-border-collapse-all-paths {
+  border-bottom-color:  rgb(185, 83, 83);
+  background-color:  rgb(185, 83, 83);
+}
+
+
+.right-border-collapse-best-path {
+  border-right-color: rgb(0, 109, 128);
+  background-color: rgb(0, 109, 128);
+}
+
+.left-border-collapse-best-path {
+  border-left-color: rgb(0, 109, 128);;
+  background-color: rgb(0, 109, 128);;
+}
+
+.top-border-collapse-best-path {
+  border-top-color: rgb(0, 109, 128);;
+  background-color: rgb(0, 109, 128);;
+}
+
+.bottom-border-collapse-best-path {
+  border-bottom-color: rgb(0, 109, 128);;
+  background-color: rgb(0, 109, 128);;
 }

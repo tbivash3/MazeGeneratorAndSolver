@@ -5,6 +5,7 @@ import { Helper } from './algorithms/utility/helper';
 import { RandomizedKruskal } from "./algorithms/mazeGeneration/RandomizerKruskal's";
 import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
 import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
+import { NodePath } from './algorithms/utility/Node';
 
 @Component({
   selector: 'app-root',
@@ -26,7 +27,7 @@ export class AppComponent implements OnInit {
 
   height = 22;
 
-  animateSpeed = 10;
+  animateSpeed = 0;
 
   isAnimating = false;
 
@@ -117,35 +118,40 @@ export class AppComponent implements OnInit {
 
 
   bfs() {
-    let frontier = this.breadthFirstSearch.findPath(0, this.width * this.height - 1, this.traversalArray );
-    this.animatePathFinder([], frontier);
+    let paths = this.breadthFirstSearch.findPath(0, this.width * this.height - 1, this.traversalArray );
+    this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
-  async animatePathFinder(path: number[], bestPath: number[]) {
+  async animatePathFinder(allPaths: NodePath[], bestPath: NodePath[]) {
 
-    for (let i = 0; i < path.length; i++) {
+    for (let i = 0; i < allPaths.length; i++) {
 
-      const node = path[i];
-      const domElement = document.getElementById('box' + node);
+      const nodePath = allPaths[i];
 
-      if(domElement !== null) {
-        domElement.classList.add('boxPath')
-      }
+      const fromCell = nodePath.node;
+      const toCell = nodePath.nextNode;
+      const direction = nodePath.direction;
+
+      const directionStringArr = Helper.getDirectionStringArr(direction);
+      
+      document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-all-paths');
+      document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-all-paths');
 
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }
 
-    for (let i = 0; i < bestPath.length; i+=2) {
+    for (let i = 1; i < bestPath.length; i++) {
 
-      const node = bestPath[i];
-      const domElement = document.getElementById('box' + node);
+      const nodePath = bestPath[i];
 
-      if(domElement !== null) {
-        const directionStringArr = Helper.getDirectionStringArr(bestPath[i + 1]);
-        console.log(directionStringArr);
-        domElement.classList.add(directionStringArr[0] + 'border-collapse-yellow');
-        domElement.classList.add(directionStringArr[1] + 'border-collapse-yellow');
-      }
+      const fromCell = nodePath.node;
+      const toCell = nodePath.nextNode;
+      const direction = nodePath.direction;
+
+      const directionStringArr = Helper.getDirectionStringArr(direction);
+      
+      document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
+      document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
 
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }

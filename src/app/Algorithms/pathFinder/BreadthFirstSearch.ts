@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { NodePath } from '../utility/Node';
 
 @Injectable({ providedIn: 'root' })
 export class BreadthFirstSearch {
@@ -6,44 +7,46 @@ export class BreadthFirstSearch {
 
     findPath(source: number, destination:number, traversalArray: number[][]) {
 
-        let graph = this.createNodeGraph(traversalArray);
-
+        let graph = this.createNodeGraph(traversalArray);        
         return this.search(graph, source, destination);
     }
-    search(graph: Map<number, number[]>, source: number, destination: number) {
-        
 
-        let frontier: number[][] = [];
+    search(graph: Map<number, NodePath[]>, source: number, destination: number) {
+        let frontier: NodePath[][] = [];
+        let searchPath: NodePath[] = [];
 
-        frontier.push([source, -1]);
+        let sourceNodePaths = graph.get(source) || [];
+
+        sourceNodePaths.forEach(path => {
+          frontier.push([path]);
+        })
 
         let index = 0;
 
         while (index < frontier.length) {
 
-            let node = frontier[index][0];
+            let nodePath = frontier[index];
 
-            if (node === destination) break;
+            searchPath.push(nodePath[0]);
 
-            let adjacentNodes = graph.get(node) || [];
+            if (nodePath[0].node === destination) break;
+
+            let adjacentNodes = graph.get(nodePath[0].nextNode) || [];
 
             for(let i = 0; i < adjacentNodes.length; i++) {
                 
-                if(i % 2 == 0) {
-                    frontier.push([adjacentNodes[i], adjacentNodes[i + 1], ...frontier[index]]);
-                }
+                frontier.push([adjacentNodes[i], ...nodePath]);
 
             }
-
             index++;
-
         }
 
-        return frontier[index];
+        const bestPath = frontier[index];
 
+        const paths = {searchPath, bestPath};
 
+        return paths;
     }
-
     
     createNodeGraph(traversalArray: number[][]) {
 
@@ -52,17 +55,18 @@ export class BreadthFirstSearch {
         traversalArray.forEach((data) => {
           if(data.length == 4) {
     
-            const fromNode = data[0];
-            const toNode = data[1];
+            const node = data[0];
+            const nextNode = data[1];
             const direction = data[2];
     
-            if(graph.has(fromNode)) {
-              graph.get(fromNode).push(toNode);
-              graph.get(fromNode).push(direction);
+            if(graph.has(node)) {
+              const nodePath: NodePath = {node, nextNode, direction};
+              graph.get(node).push(nodePath);
+    
             } else {
-              graph.set(fromNode, []);
-              graph.get(fromNode).push(toNode);
-              graph.get(fromNode).push(direction);
+              graph.set(node, []);
+              const nodePath: NodePath = {node, nextNode, direction};
+              graph.get(node).push(nodePath)
             }
     
           }
