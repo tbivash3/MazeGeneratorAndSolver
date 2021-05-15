@@ -8,21 +8,6 @@ export class BreadthFirstSearch {
     findPath(source: number, destination:number, traversalArray: number[][]) {
 
         let graph = this.createNodeGraph(traversalArray);   
-        
-        let keys:number[] = []
-      
-        graph.forEach((value, key) => {
-          keys.push(key);
-        })
-
-        keys.sort();
-
-        console.log(keys)
-
-        keys.forEach(key => {
-          console.log(graph.get(key));
-        })
-
       
         return this.search(graph, source, destination);
     }
@@ -63,10 +48,8 @@ export class BreadthFirstSearch {
             index++;
         }
 
-        console.log(frontier);
-
         const bestPath = frontier[index];
-
+        
         const paths = {searchPath, bestPath};
 
         return paths;
@@ -100,12 +83,12 @@ export class BreadthFirstSearch {
             }
 
             if(graph.has(nextNode)) {
-              const nodePath: NodePath = {nextNode, node, direction};
+              const nodePath: NodePath = {node: nextNode, nextNode: node, direction};
               graph.get(nextNode).push(nodePath);
     
             } else {
               graph.set(nextNode, []);
-              const nodePath: NodePath = {nextNode, node, direction};
+              const nodePath: NodePath = {node: nextNode, nextNode: node, direction};
               graph.get(nextNode).push(nodePath)
             }
     

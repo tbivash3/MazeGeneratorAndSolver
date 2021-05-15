@@ -124,7 +124,7 @@ export class AppComponent implements OnInit {
 
   async animatePathFinder(allPaths: NodePath[], bestPath: NodePath[]) {
 
-    for (let i = 0; i < allPaths.length; i++) {
+    for (let i = 1; i < allPaths.length; i++) {
 
       const nodePath = allPaths[i];
 
@@ -140,6 +140,7 @@ export class AppComponent implements OnInit {
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }
 
+    await new Promise((r) => setTimeout(r, 5000));
     for (let i = 1; i < bestPath.length; i++) {
 
       const nodePath = bestPath[i];
