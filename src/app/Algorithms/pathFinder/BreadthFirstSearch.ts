@@ -7,13 +7,31 @@ export class BreadthFirstSearch {
 
     findPath(source: number, destination:number, traversalArray: number[][]) {
 
-        let graph = this.createNodeGraph(traversalArray);        
+        let graph = this.createNodeGraph(traversalArray);   
+        
+        let keys:number[] = []
+      
+        graph.forEach((value, key) => {
+          keys.push(key);
+        })
+
+        keys.sort();
+
+        console.log(keys)
+
+        keys.forEach(key => {
+          console.log(graph.get(key));
+        })
+
+      
         return this.search(graph, source, destination);
     }
 
     search(graph: Map<number, NodePath[]>, source: number, destination: number) {
         let frontier: NodePath[][] = [];
         let searchPath: NodePath[] = [];
+        let visited:Set<number> = new Set();
+
 
         let sourceNodePaths = graph.get(source) || [];
 
@@ -31,15 +49,21 @@ export class BreadthFirstSearch {
 
             if (nodePath[0].node === destination) break;
 
+            visited.add(nodePath[0].node);
+
             let adjacentNodes = graph.get(nodePath[0].nextNode) || [];
 
             for(let i = 0; i < adjacentNodes.length; i++) {
-                
-                frontier.push([adjacentNodes[i], ...nodePath]);
 
+              if(!visited.has(adjacentNodes[i].node)){
+                frontier.push([adjacentNodes[i], ...nodePath]);
+              }
+            
             }
             index++;
         }
+
+        console.log(frontier);
 
         const bestPath = frontier[index];
 
@@ -57,7 +81,7 @@ export class BreadthFirstSearch {
     
             const node = data[0];
             const nextNode = data[1];
-            const direction = data[2];
+            let direction = data[2];
     
             if(graph.has(node)) {
               const nodePath: NodePath = {node, nextNode, direction};
@@ -67,6 +91,22 @@ export class BreadthFirstSearch {
               graph.set(node, []);
               const nodePath: NodePath = {node, nextNode, direction};
               graph.get(node).push(nodePath)
+            }
+
+            direction = direction + 2;
+
+            if(direction > 4) {
+              direction = direction - 4;
+            }
+
+            if(graph.has(nextNode)) {
+              const nodePath: NodePath = {nextNode, node, direction};
+              graph.get(nextNode).push(nodePath);
+    
+            } else {
+              graph.set(nextNode, []);
+              const nodePath: NodePath = {nextNode, node, direction};
+              graph.get(nextNode).push(nodePath)
             }
     
           }
