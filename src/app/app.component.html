@@ -34,10 +34,15 @@
   </button>
   </div>
 
-  <div id="mazeContainer">
-    <div id="maze">
+  <div id="mazeContainer" #mazeContainer>
+    <div id="maze" [style.width.px] = "mazeWidth">
       <ng-container *ngFor="let i of length">
-        <div id="{{ 'box' + i }}" class="box"></div>
+        <div 
+          id="{{ 'box' + i }}" 
+          class="box"
+          [style.height.px]="boxSize"
+          [style.width.px]="boxSize"
+        ></div>
       </ng-container>
     </div>
   </div>

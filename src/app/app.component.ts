@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { RandomizedDepthFirst } from './algorithms/mazeGeneration/RandomizedDepthFirst';
 import { BinaryTree } from './algorithms/mazeGeneration/BinaryTree';
 import { Helper } from './algorithms/utility/helper';
@@ -12,7 +12,7 @@ import { NodePath } from './algorithms/utility/Node';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements AfterViewInit {
   title = 'MazeGeneratorAndSolver';
 
   constructor(
@@ -23,7 +23,11 @@ export class AppComponent implements OnInit {
     private breadthFirstSearch: BreadthFirstSearch
   ) {}
 
+  boxSize = 0;
+
   width = 22;
+
+  mazeWidth = 500;
 
   height = 22;
 
@@ -33,13 +37,28 @@ export class AppComponent implements OnInit {
 
   isAlgorithmSet = false;
 
+  maxWidth = 30;
+
   length: number[] = [];
 
   traversalArray: number[][] = [];
 
-  ngOnInit() {
+  ngAfterViewInit(): void {
+    const width = this.mazeContainer.nativeElement.offsetWidth;
+
+
+    const widthMinusBorder = width - this.maxWidth * 2
+
+    this.boxSize = Math.floor(widthMinusBorder / this.maxWidth);
+    console.log(this.boxSize);
+
     this.setLength();
+
   }
+
+  @ViewChild('mazeContainer')
+  mazeContainer!: ElementRef;
+
 
   setLength() {
     this.length = Array.from(Array(this.width * this.height).keys());
@@ -140,7 +159,7 @@ export class AppComponent implements OnInit {
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }
 
-    await new Promise((r) => setTimeout(r, 5000));
+    await new Promise((r) => setTimeout(r, 2000));
     for (let i = 1; i < bestPath.length; i++) {
 
       const nodePath = bestPath[i];
