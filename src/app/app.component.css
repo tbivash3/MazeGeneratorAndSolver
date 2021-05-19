@@ -1,16 +1,14 @@
 #mainContainer {
   display: flex;
+  flex-direction: column;
   justify-content: space-evenly;
-  margin: 10vh 5vw 10vh 5vw;
   width: 90vw;
-  height: 80vh;
-  border: 1px solid red;
+  margin: auto;
 }
 
 #mazeContainer {
-  width: 50%;
-  height: 100%;
-  border: 1px solid blue;
+  width: 100%;
+  height: 80%;
   display: flex;
   justify-content: center;
 }
@@ -22,37 +20,29 @@
 }
 
 .sideContainer {
-  border: 1px solid blue;
-  width: 20%;
+  background-color: antiquewhite;
+  width: 100%;
+  height: 20%;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  margin-top: 5%;
+  justify-content: center;
 }
 
 .sideContainer button {
-  padding: 4%;
-  margin: 2%;
-  width: 60%;
+  padding: 1%;
+  margin: 1%;
+  width: 5%;
   border-radius: 10px;
 }
 
-.slideContainer {
-  border: 1px solid blue;
-  margin-top: 15%;
-  width: 60%;
+.slide {
   display: flex;
-  flex-direction: column;
-  align-content: flex-start;
 }
 
 .slide p {
   font-size: 19px;
 }
 
-.slide input {
-  width: 100%;
-}
 
 button:hover:enabled {
   box-shadow: 0 0.5em 0.5em -0.4em red;
@@ -60,9 +50,7 @@ button:hover:enabled {
 }
 
 .box {
-  width: 25px;
-  height: 25px;
-  background-color: green;
+  background-color: rgb(55, 139, 69);
   border: 1px solid white;
 }
 

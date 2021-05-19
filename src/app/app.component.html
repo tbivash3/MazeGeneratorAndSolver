@@ -1,85 +1,48 @@
 <div id="mainContainer">
   <div class="sideContainer">
-    <button
-      [disabled]="isAnimating || isAlgorithmSet"
-      (click)="createRandomizedDFSMaze()"
-    >
-      Randomized Depth First
+    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedDFSMaze()">
+      Depth First
     </button>
-    <button
-      [disabled]="isAnimating || isAlgorithmSet"
-      (click)="createBinarySearchMaze()"
-    >
+    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createBinarySearchMaze()">
       Binary Tree
     </button>
 
-    <button
-      [disabled]="isAnimating || isAlgorithmSet"
-      (click)="createRandomizedKruskalMaze()"
-    >
-      Randomized Kruskal
+    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedKruskalMaze()">
+      Kruskal
     </button>
 
-    <button
-      [disabled]="isAnimating || isAlgorithmSet"
-      (click)="createRandomizedPrimsMaze()"
-    >
-      Randomized Prim
+    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedPrimsMaze()">
+      Prim
     </button>
 
-    <button
-    (click)="bfs()"
-  >
-    BFS
-  </button>
-  </div>
-
-  <div id="mazeContainer" #mazeContainer>
-    <div id="maze" [style.width.px] = "mazeWidth">
-      <ng-container *ngFor="let i of length">
-        <div 
-          id="{{ 'box' + i }}" 
-          class="box"
-          [style.height.px]="boxSize"
-          [style.width.px]="boxSize"
-        ></div>
-      </ng-container>
-    </div>
-  </div>
-  <div class="sideContainer">
+    <button (click)="bfs()">
+      BFS
+    </button>
     <button [disabled]="isAnimating || !isAlgorithmSet" (click)="animateMazeGeneration()">
       Animate
     </button>
     <button [disabled]="isAnimating" (click)="resetAll()">Reset</button>
+    <div class="slide">
+      <p>Width:</p>
+      <input #width [disabled]="isAnimating || isAlgorithmSet" type="range" min="5" [max]="maxNumOfBoxColumn"
+        [value]="currentNumOfBoxColumn" class="slider" (input)="setWidth(width.value)" />
+    </div>
 
-    <div class="slideContainer">
-      <div class="slide">
-        <p>Width:</p>
-        <input
-          #width
-          [disabled]="isAnimating || isAlgorithmSet"
-          type="range"
-          min="15"
-          max="30"
-          value="22"
-          class="slider"
-          (input)="setWidth(width.value)"
-        />
-      </div>
-
-      <div class="slide">
-        <p>Height:</p>
-        <input
-          #height
-          [disabled]="isAnimating || isAlgorithmSet"
-          type="range"
-          min="17"
-          max="30"
-          value="22"
-          class="slider"
-          (input)="setHeight(height.value)"
-        />
-      </div>
+    <div class="slide">
+      <p>Height:</p>
+      <input #height [disabled]="isAnimating || isAlgorithmSet" type="range" min="5" [max]="maxNumOfBoxRow"
+        [value]="currentNumOfBoxRow" class="slider" (input)="setHeight(height.value)" />
     </div>
   </div>
+
+
+  <div id="mazeContainer" #mazeContainer>
+    <div id="maze" [style.width.px]="mazeWidthInPx">
+      <ng-container *ngFor="let i of length">
+        <div id="{{ 'box' + i }}" class="box" [style.height.px]="boxWidthAndHeightInPx"
+          [style.width.px]="boxWidthAndHeightInPx"></div>
+      </ng-container>
+    </div>
+  </div>
+
 </div>

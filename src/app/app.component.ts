@@ -6,6 +6,7 @@ import { RandomizedKruskal } from "./algorithms/mazeGeneration/RandomizerKruskal
 import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
 import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 import { NodePath } from './algorithms/utility/Node';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-root',
@@ -23,37 +24,50 @@ export class AppComponent implements AfterViewInit {
     private breadthFirstSearch: BreadthFirstSearch
   ) {}
 
-  boxSize = 0;
+  
+  currentNumOfBoxColumn = 0;
+  currentNumOfBoxRow = 0;
+  maxNumOfBoxColumn = 50;
+  maxNumOfBoxRow = 0;
 
-  width = 22;
-
-  mazeWidth = 500;
-
-  height = 22;
-
+  mazeWidthInPx = 500;
+  boxWidthAndHeightInPx = 0;
+  
   animateSpeed = 0;
 
   isAnimating = false;
-
   isAlgorithmSet = false;
 
-  maxWidth = 30;
-
   length: number[] = [];
-
   traversalArray: number[][] = [];
 
   ngAfterViewInit(): void {
+    this.setWidthData();
+    this.setHeightData();
+    this.setLength();
+  }
+
+  setHeightData() {
+    const viewPortHeight = window.screen.height;
+
+    this.maxNumOfBoxRow = Math.floor((0.6 * viewPortHeight) / (this.boxWidthAndHeightInPx + 2));
+    this.currentNumOfBoxRow = Math.floor(this.maxNumOfBoxRow / 2) + 3;
+  }
+
+  setWidthData() {
     const width = this.mazeContainer.nativeElement.offsetWidth;
 
+    if(width < 600) {
+      this.maxNumOfBoxColumn = 20;
+    } else if(width < 1000) {
+      this.maxNumOfBoxColumn = 30;
+    }
 
-    const widthMinusBorder = width - this.maxWidth * 2
+    const widthMinusBorder = width - this.maxNumOfBoxColumn * 2;
 
-    this.boxSize = Math.floor(widthMinusBorder / this.maxWidth);
-    console.log(this.boxSize);
-
-    this.setLength();
-
+    this.boxWidthAndHeightInPx = Math.floor(widthMinusBorder / this.maxNumOfBoxColumn);
+    this.currentNumOfBoxColumn = Math.floor(this.maxNumOfBoxColumn / 2) + 3;
+    this.mazeWidthInPx = (this.boxWidthAndHeightInPx + 2) * this.currentNumOfBoxColumn;
   }
 
   @ViewChild('mazeContainer')
@@ -61,7 +75,7 @@ export class AppComponent implements AfterViewInit {
 
 
   setLength() {
-    this.length = Array.from(Array(this.width * this.height).keys());
+    this.length = Array.from(Array(this.currentNumOfBoxColumn * this.currentNumOfBoxRow).keys());
   }
 
   resetAll() {
@@ -81,12 +95,9 @@ export class AppComponent implements AfterViewInit {
   setWidth(width: string) {
     this.traversalArray = [];
     this.resetAll();
-    this.width = Number(width);
-    let el = document.getElementById('maze');
+    this.currentNumOfBoxColumn = Number(width);
 
-    if (el !== null) {
-      el.style.width = this.width * 27 + 'px';
-    }
+    this.mazeWidthInPx = (this.boxWidthAndHeightInPx + 2) * this.currentNumOfBoxColumn;
 
     this.setLength();
   }
@@ -94,7 +105,7 @@ export class AppComponent implements AfterViewInit {
   setHeight(height: string) {
     this.traversalArray = [];
     this.resetAll();
-    this.height = Number(height);
+    this.currentNumOfBoxRow = Number(height);
     this.setLength();
   }
 
@@ -102,8 +113,8 @@ export class AppComponent implements AfterViewInit {
   createRandomizedDFSMaze() {
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
-      this.width,
-      this.height,
+      this.currentNumOfBoxColumn,
+      this.currentNumOfBoxRow,
       this.traversalArray
     );
     this.isAlgorithmSet = true;
@@ -111,15 +122,15 @@ export class AppComponent implements AfterViewInit {
 
   createBinarySearchMaze() {
     this.traversalArray = [];
-    this.binaryTree.createMaze(this.width, this.height, this.traversalArray);
+    this.binaryTree.createMaze(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
     this.isAlgorithmSet = true;
   }
 
   createRandomizedKruskalMaze() {
     this.traversalArray = [];
     this.randomizedKruskal.createMaze(
-      this.width,
-      this.height,
+      this.currentNumOfBoxColumn,
+      this.currentNumOfBoxRow,
       this.traversalArray
     );
     this.isAlgorithmSet = true;
@@ -128,8 +139,8 @@ export class AppComponent implements AfterViewInit {
   createRandomizedPrimsMaze() {
     this.traversalArray = [];
     this.randomizedPrim.createMaze(
-      this.width,
-      this.height,
+      this.currentNumOfBoxColumn,
+      this.currentNumOfBoxRow,
       this.traversalArray
     );
     this.isAlgorithmSet = true;
@@ -137,7 +148,7 @@ export class AppComponent implements AfterViewInit {
 
 
   bfs() {
-    let paths = this.breadthFirstSearch.findPath(0, this.width * this.height - 1, this.traversalArray );
+    let paths = this.breadthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray );
     this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
