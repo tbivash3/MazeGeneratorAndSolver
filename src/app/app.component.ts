@@ -7,6 +7,7 @@ import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
 import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 import { NodePath } from './algorithms/utility/Node';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { DepthFirstSearch } from './algorithms/pathFinder/DepthFirstSearch';
 
 @Component({
   selector: 'app-root',
@@ -21,10 +22,11 @@ export class AppComponent implements AfterViewInit {
     private binaryTree: BinaryTree,
     private randomizedKruskal: RandomizedKruskal,
     private randomizedPrim: RandomizedPrim,
-    private breadthFirstSearch: BreadthFirstSearch
-  ) {}
+    private breadthFirstSearch: BreadthFirstSearch,
+    private depthFirstSearch: DepthFirstSearch
+  ) { }
 
-  
+
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
   maxNumOfBoxColumn = 50;
@@ -32,8 +34,8 @@ export class AppComponent implements AfterViewInit {
 
   mazeWidthInPx = 500;
   boxWidthAndHeightInPx = 0;
-  
-  animateSpeed = 0;
+
+  animateSpeed = 100;
 
   isAnimating = false;
   isAlgorithmSet = false;
@@ -57,9 +59,9 @@ export class AppComponent implements AfterViewInit {
   setWidthData() {
     const width = this.mazeContainer.nativeElement.offsetWidth;
 
-    if(width < 600) {
+    if (width < 600) {
       this.maxNumOfBoxColumn = 20;
-    } else if(width < 1000) {
+    } else if (width < 1000) {
       this.maxNumOfBoxColumn = 30;
     }
 
@@ -109,7 +111,7 @@ export class AppComponent implements AfterViewInit {
     this.setLength();
   }
 
-  
+
   createRandomizedDFSMaze() {
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
@@ -148,13 +150,20 @@ export class AppComponent implements AfterViewInit {
 
 
   bfs() {
-    let paths = this.breadthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray );
+    let paths = this.breadthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray);
     this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
+  dfs() {
+    let paths = this.depthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray);
+
+    this.animatePathFinder(paths.searchPath, paths.bestPath);
+  }
+
+
   async animatePathFinder(allPaths: NodePath[], bestPath: NodePath[]) {
 
-    for (let i = 1; i < allPaths.length; i++) {
+    for (let i = 0; i < allPaths.length; i++) {
 
       const nodePath = allPaths[i];
 
@@ -163,7 +172,7 @@ export class AppComponent implements AfterViewInit {
       const direction = nodePath.direction;
 
       const directionStringArr = Helper.getDirectionStringArr(direction);
-      
+
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-all-paths');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-all-paths');
 
@@ -171,7 +180,7 @@ export class AppComponent implements AfterViewInit {
     }
 
     await new Promise((r) => setTimeout(r, 2000));
-    for (let i = 1; i < bestPath.length; i++) {
+    for (let i = 0; i < bestPath.length; i++) {
 
       const nodePath = bestPath[i];
 
@@ -180,7 +189,7 @@ export class AppComponent implements AfterViewInit {
       const direction = nodePath.direction;
 
       const directionStringArr = Helper.getDirectionStringArr(direction);
-      
+
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
 
