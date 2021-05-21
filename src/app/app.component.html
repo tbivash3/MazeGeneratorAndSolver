@@ -1,42 +1,75 @@
 <div id="mainContainer">
   <div class="sideContainer">
-    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedDFSMaze()">
-      Depth First
-    </button>
-    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createBinarySearchMaze()">
-      Binary Tree
-    </button>
 
-    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedKruskalMaze()">
-      Kruskal
-    </button>
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Select Maze Generation Algorithm
+        </mat-panel-title>
 
-    <button [disabled]="isAnimating || isAlgorithmSet" (click)="createRandomizedPrimsMaze()">
-      Prim
-    </button>
+      </mat-expansion-panel-header>
+      <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
+        (click)="createRandomizedDFSMaze()">
+        Depth First
+      </button>
+      <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
+        (click)="createBinarySearchMaze()">
+        Binary Tree
+      </button>
 
-    <button (click)="bfs()">
-      BFS
-    </button>
+      <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
+        (click)="createRandomizedKruskalMaze()">
+        Kruskal
+      </button>
 
-    <button (click)="dfs()">
-      DFS
-    </button>
-    <button [disabled]="isAnimating || !isAlgorithmSet" (click)="animateMazeGeneration()">
-      Animate
-    </button>
-    <button [disabled]="isAnimating" (click)="resetAll()">Reset</button>
-    <div class="slide">
-      <mat-label>Width</mat-label>
-      <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
-        [value]="currentNumOfBoxColumn" (input)="setWidth(width.value)"></mat-slider>
+      <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
+        (click)="createRandomizedPrimsMaze()">
+        Prim
+      </button>
+
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Path Finding Algorithm
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <button mat-flat-button color="accent" (click)="bfs()">
+        BFS
+      </button>
+
+      <button mat-flat-button color="accent" (click)="dfs()">
+        DFS
+      </button>
+    </mat-expansion-panel>
+
+    <div id="buttonContainer">
+      <button mat-flat-button color="warn" [disabled]="isAnimating || !isAlgorithmSet"
+        (click)="animateMazeGeneration()">
+        Animate
+      </button>
+      <button mat-flat-button color="warn" [disabled]="isAnimating" (click)="resetAll()">Reset</button>
+
     </div>
 
-    <div class="slide">
-      <mat-label>Height</mat-label>
-      <mat-slider #height [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxRow"
-        [value]="currentNumOfBoxRow" (input)="setWidth(height.value)"></mat-slider>
+    <div id="slideContainer">
+      <div class="slide">
+        <mat-label>Width</mat-label>
+        <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
+          [value]="currentNumOfBoxColumn" (input)="setWidth(width.value)"></mat-slider>
+
+      </div>
+
+      <div class="slide">
+        <mat-label>Height</mat-label>
+        <mat-slider #height [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxRow"
+          [value]="currentNumOfBoxRow" (input)="setHeight(height.value)"></mat-slider>
+      </div>
+
+
     </div>
+
   </div>
 
 

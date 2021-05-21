@@ -26,7 +26,7 @@ export class AppComponent implements AfterViewInit {
     private depthFirstSearch: DepthFirstSearch
   ) { }
 
-
+  panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
   maxNumOfBoxColumn = 50;
@@ -104,7 +104,7 @@ export class AppComponent implements AfterViewInit {
     this.setLength();
   }
 
-  setHeight(height: string) {
+  setHeight(height: number | null) {
     this.traversalArray = [];
     this.resetAll();
     this.currentNumOfBoxRow = Number(height);
@@ -113,6 +113,7 @@ export class AppComponent implements AfterViewInit {
 
 
   createRandomizedDFSMaze() {
+    console.log("Here");
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
       this.currentNumOfBoxColumn,

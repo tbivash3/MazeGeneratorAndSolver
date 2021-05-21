@@ -6,6 +6,8 @@ import { NavBarComponent } from './nav-bar/nav-bar.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatExpansionModule } from '@angular/material/expansion';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -17,6 +19,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
     BrowserAnimationsModule,
     MatSliderModule,
     MatFormFieldModule,
+    MatExpansionModule,
+    MatButtonModule,
   ],
   providers: [],
   bootstrap: [AppComponent]
