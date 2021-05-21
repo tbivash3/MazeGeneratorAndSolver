@@ -27,15 +27,15 @@
     </button>
     <button [disabled]="isAnimating" (click)="resetAll()">Reset</button>
     <div class="slide">
-      <p>Width:</p>
-      <input #width [disabled]="isAnimating || isAlgorithmSet" type="range" min="5" [max]="maxNumOfBoxColumn"
-        [value]="currentNumOfBoxColumn" class="slider" (input)="setWidth(width.value)" />
+      <mat-label>Width</mat-label>
+      <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
+        [value]="currentNumOfBoxColumn" (input)="setWidth(width.value)"></mat-slider>
     </div>
 
     <div class="slide">
-      <p>Height:</p>
-      <input #height [disabled]="isAnimating || isAlgorithmSet" type="range" min="5" [max]="maxNumOfBoxRow"
-        [value]="currentNumOfBoxRow" class="slider" (input)="setHeight(height.value)" />
+      <mat-label>Height</mat-label>
+      <mat-slider #height [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxRow"
+        [value]="currentNumOfBoxRow" (input)="setWidth(height.value)"></mat-slider>
     </div>
   </div>
 

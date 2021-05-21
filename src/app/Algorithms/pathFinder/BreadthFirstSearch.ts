@@ -49,7 +49,7 @@ export class BreadthFirstSearch {
       index++;
     }
 
-    const bestPath = frontier[index];
+    const bestPath = frontier[index].splice(1,);
 
     const paths = { searchPath, bestPath };
 

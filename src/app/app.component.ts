@@ -35,7 +35,7 @@ export class AppComponent implements AfterViewInit {
   mazeWidthInPx = 500;
   boxWidthAndHeightInPx = 0;
 
-  animateSpeed = 100;
+  animateSpeed = 30;
 
   isAnimating = false;
   isAlgorithmSet = false;
@@ -94,7 +94,7 @@ export class AppComponent implements AfterViewInit {
     }
   }
 
-  setWidth(width: string) {
+  setWidth(width: number | null) {
     this.traversalArray = [];
     this.resetAll();
     this.currentNumOfBoxColumn = Number(width);
@@ -179,7 +179,7 @@ export class AppComponent implements AfterViewInit {
       await new Promise((r) => setTimeout(r, this.animateSpeed));
     }
 
-    await new Promise((r) => setTimeout(r, 2000));
+    await new Promise((r) => setTimeout(r, 1000));
     for (let i = 0; i < bestPath.length; i++) {
 
       const nodePath = bestPath[i];
