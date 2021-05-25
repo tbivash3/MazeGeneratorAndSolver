@@ -29,13 +29,13 @@ export class AppComponent implements AfterViewInit {
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
-  maxNumOfBoxColumn = 50;
+  maxNumOfBoxColumn = 80;
   maxNumOfBoxRow = 0;
 
   mazeWidthInPx = 500;
   boxWidthAndHeightInPx = 0;
 
-  animateSpeed = 30;
+  animateSpeed = 0;
 
   isAnimating = false;
   isAlgorithmSet = false;
@@ -151,12 +151,12 @@ export class AppComponent implements AfterViewInit {
 
 
   bfs() {
-    let paths = this.breadthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray);
+    let paths = this.breadthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
     this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
   dfs() {
-    let paths = this.depthFirstSearch.findPath(0, this.currentNumOfBoxColumn * this.currentNumOfBoxRow - 1, this.traversalArray);
+    let paths = this.depthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
 
     this.animatePathFinder(paths.searchPath, paths.bestPath);
   }

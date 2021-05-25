@@ -6,9 +6,12 @@ import { Utility } from './Utility';
 export class BreadthFirstSearch {
   constructor(private utility: Utility) { }
 
-  findPath(source: number, destination: number, traversalArray: number[][]) {
+  findPath(width: number, height: number, traversalArray: number[][]) {
 
-    let graph = this.utility.createNodeGraph(traversalArray);
+    const source = 0;
+    const destination = width * height - 1;
+
+    let graph = this.utility.createNodeGraph(width, height, traversalArray);
 
     return this.search(graph, source, destination);
   }

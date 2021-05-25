@@ -107,11 +107,6 @@ button:hover:enabled {
   background-color: black;
 }
 
-.reset-box {
-  background-color: green;
-  border-color: white;
-}
-
 .right-border-collapse-all-paths {
   border-right-color: rgb(185, 83, 83);
   background-color: rgb(185, 83, 83);

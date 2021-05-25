@@ -10,16 +10,16 @@ export class DepthFirstSearch {
     bestPathIndex = -1;
     searchPathIndex = -1;
 
-    findPath(source: number, destination: number, traversalArray: number[][]) {
+    findPath(width: number, height: number, traversalArray: number[][]) {
 
-        let graph = this.utility.createNodeGraph(traversalArray);
+        let graph = this.utility.createNodeGraph(width, height, traversalArray);
 
         let searchPath: NodePath[] = [];
 
         let allPaths: NodePath[][] = [];
         allPaths.push([]);
 
-        this.search(graph, source, destination, new Set(), searchPath, allPaths, 0);
+        this.search(graph, 0, width * height - 1, new Set(), searchPath, allPaths, 0);
 
         const bestPath = allPaths[this.bestPathIndex];
 
