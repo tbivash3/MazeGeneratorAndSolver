@@ -53,6 +53,13 @@ export class Utility {
 
     findDistance(node: number, destinationNode: number, width: number): number {
 
+        let tempNode = destinationNode;
+
+        if (node > destinationNode) {
+            destinationNode = node;
+            node = tempNode;
+        }
+
         let heightDiff = 0;
         let widthDiff = 0;
 
@@ -61,7 +68,6 @@ export class Utility {
 
             if ((temp + width) <= destinationNode) {
                 heightDiff += 1;
-                widthDiff += width;
             } else {
                 break;
             }
@@ -72,7 +78,7 @@ export class Utility {
         if (widthDiff == 0) {
             widthDiff = Math.abs(node - destinationNode);
         } else {
-            widthDiff = Math.abs(destinationNode - widthDiff);
+            widthDiff = Math.abs(destinationNode - temp);
         }
 
         return Math.sqrt(Math.pow(heightDiff, 2) + Math.pow(widthDiff, 2));
