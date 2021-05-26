@@ -26,6 +26,16 @@ export class AppComponent implements AfterViewInit {
     private depthFirstSearch: DepthFirstSearch
   ) { }
 
+  defaultAnimationSpeedText = "Change Animation Speed";
+  defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
+  defaultPathAlgorithmText = "Select Path Finding Algorithm";
+  defaultMazeWidthHeightText = "Select Maze Width/Height";
+
+  currentAnimationSpeedText = "Change Animation Speed";
+  currentMazeAlgorithmText = "Select Maze Generation Algorithm";
+  currentPathAlgorithmText = "Select Path Finding Algorithm";
+  currentMazeWidthHeightText = "Select Maze Width/Height";
+
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
@@ -83,7 +93,15 @@ export class AppComponent implements AfterViewInit {
   resetAll() {
     this.isAlgorithmSet = false;
     this.isAnimating = false;
+    this.resetAllText();
     this.resetMaze();
+  }
+
+  resetAllText() {
+    this.currentMazeAlgorithmText = this.defaultMazeAlgorithmText;
+    this.currentAnimationSpeedText = this.defaultAnimationSpeedText;
+    this.currentMazeWidthHeightText = this.defaultMazeWidthHeightText;
+    this.currentPathAlgorithmText = this.defaultPathAlgorithmText;
   }
 
   resetMaze() {
@@ -113,7 +131,6 @@ export class AppComponent implements AfterViewInit {
 
 
   createRandomizedDFSMaze() {
-    console.log("Here");
     this.traversalArray = [];
     this.randomizedDepthFirst.createMaze(
       this.currentNumOfBoxColumn,
@@ -121,12 +138,16 @@ export class AppComponent implements AfterViewInit {
       this.traversalArray
     );
     this.isAlgorithmSet = true;
+
+    this.currentMazeAlgorithmText = "Randomized Depth First";
   }
 
   createBinarySearchMaze() {
     this.traversalArray = [];
     this.binaryTree.createMaze(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
     this.isAlgorithmSet = true;
+
+    this.currentMazeAlgorithmText = "Binary Tree";
   }
 
   createRandomizedKruskalMaze() {
@@ -137,6 +158,8 @@ export class AppComponent implements AfterViewInit {
       this.traversalArray
     );
     this.isAlgorithmSet = true;
+
+    this.currentMazeAlgorithmText = "Randomized Kruskal's";
   }
 
   createRandomizedPrimsMaze() {
@@ -147,6 +170,8 @@ export class AppComponent implements AfterViewInit {
       this.traversalArray
     );
     this.isAlgorithmSet = true;
+
+    this.currentMazeAlgorithmText = "Randomized Prim's"
   }
 
 

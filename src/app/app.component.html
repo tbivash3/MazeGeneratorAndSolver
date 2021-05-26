@@ -4,7 +4,7 @@
     <mat-expansion-panel class="animationSpeed">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Change Animation Speed
+          {{ currentAnimationSpeedText }}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -20,13 +20,13 @@
     <mat-expansion-panel class="mazeAlgorithms">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Select Maze Generation Algorithm
+          {{ currentMazeAlgorithmText }}
         </mat-panel-title>
 
       </mat-expansion-panel-header>
       <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
         (click)="createRandomizedDFSMaze()">
-        Depth First
+        Randomized Depth First
       </button>
       <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
         (click)="createBinarySearchMaze()">
@@ -35,19 +35,19 @@
 
       <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
         (click)="createRandomizedKruskalMaze()">
-        Kruskal
+        Randomized Kruskal's
       </button>
 
       <button mat-flat-button color="accent" [disabled]="isAnimating || isAlgorithmSet"
         (click)="createRandomizedPrimsMaze()">
-        Prim
+        Randomized Prim's
       </button>
 
     </mat-expansion-panel>
     <mat-expansion-panel class="pathAlgorithms">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Select Path Finding Algorithm
+          {{currentPathAlgorithmText}}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -63,7 +63,7 @@
     <mat-expansion-panel class="slider">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Change Maze Width/Height
+          {{currentMazeWidthHeightText}}
         </mat-panel-title>
       </mat-expansion-panel-header>
 
