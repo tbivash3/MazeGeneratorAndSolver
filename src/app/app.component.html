@@ -1,7 +1,23 @@
 <div id="mainContainer">
-  <div class="sideContainer">
+  <div class="nav-bar">
 
-    <mat-expansion-panel>
+    <mat-expansion-panel class="animationSpeed">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Change Animation Speed
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="width-slide">
+        <mat-label>Speed</mat-label>
+        <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
+          [value]="currentNumOfBoxColumn" (input)="setWidth(width.value)"></mat-slider>
+
+      </div>
+    </mat-expansion-panel>
+
+
+    <mat-expansion-panel class="mazeAlgorithms">
       <mat-expansion-panel-header>
         <mat-panel-title>
           Select Maze Generation Algorithm
@@ -28,10 +44,10 @@
       </button>
 
     </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false">
+    <mat-expansion-panel class="pathAlgorithms">
       <mat-expansion-panel-header>
         <mat-panel-title>
-          Path Finding Algorithm
+          Select Path Finding Algorithm
         </mat-panel-title>
       </mat-expansion-panel-header>
 
@@ -44,16 +60,13 @@
       </button>
     </mat-expansion-panel>
 
-    <div id="buttonContainer">
-      <button mat-flat-button color="warn" [disabled]="isAnimating || !isAlgorithmSet"
-        (click)="animateMazeGeneration()">
-        Animate
-      </button>
-      <button mat-flat-button color="warn" [disabled]="isAnimating" (click)="resetAll()">Reset</button>
+    <mat-expansion-panel class="slider">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          Change Maze Width/Height
+        </mat-panel-title>
+      </mat-expansion-panel-header>
 
-    </div>
-
-    <div id="slideContainer">
       <div class="slide">
         <mat-label>Width</mat-label>
         <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
@@ -66,7 +79,14 @@
         <mat-slider #height [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxRow"
           [value]="currentNumOfBoxRow" (input)="setHeight(height.value)"></mat-slider>
       </div>
+    </mat-expansion-panel>
 
+    <div id="buttonContainer">
+      <button mat-flat-button color="warn" [disabled]="isAnimating || !isAlgorithmSet"
+        (click)="animateMazeGeneration()">
+        Animate
+      </button>
+      <button mat-flat-button color="warn" [disabled]="isAnimating" (click)="resetAll()">Reset</button>
 
     </div>
 

@@ -2,14 +2,16 @@
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
-  width: 90vw;
+  width: 99vw;
   margin: auto;
+  position: relative;
 }
 
 #mazeContainer {
   width: 100%;
   display: flex;
   justify-content: center;
+  margin-top: 50px;
 }
 
 #maze {
@@ -18,17 +20,42 @@
   flex-wrap: wrap;
 }
 
-.sideContainer {
-  width: 90%;
-  margin: auto;
+.nav-bar {
+  width: 100%;
   margin-bottom: 50px;
-  display: flex;
-  align-items: center;
-  justify-content:space-evenly;
 }
 
-mat-expansion-panel {
-  width: 20%;
+.animationSpeed {
+  width: 16%;
+  position: absolute;
+  top: 0px;
+  left: 4%;
+  margin: auto;
+}
+
+.mazeAlgorithms {
+  width: 16%;
+  position: absolute;
+  top: 0px;
+  left:22%;
+  margin: auto;
+}
+
+#buttonContainer {
+  width: 16%;
+  position: absolute;
+  top: 0px;
+  left: 42%;
+  margin: auto;
+  margin-top: 3px;
+}
+
+.pathAlgorithms {
+  width: 16%;
+  position: absolute;
+  top: 0px;
+  left: 62%;
+  margin: auto;
 }
 
 mat-expansion-panel button {
@@ -38,23 +65,25 @@ mat-expansion-panel button {
   margin-bottom: 10px;
 }
 
-#buttonContainer {
-  width: 20%;
+mat-expansion-panel .slide {
+  display: flex;
+  justify-content: center;
+  width: 100%;
 }
+
 
 #buttonContainer button{
-  width: 120px;
+  width: 40%;
   height: 45px;
-  margin-right: 10px;
+  margin: 0 5% 0 5%;
 }
 
-#slideContainer {
-  width: 20%;
-  display: flex;
-}
-
-#slideContainer .slide {
-  
+.slider {
+  width: 16%;
+  position: absolute;
+  top: 0px;
+  left: 80%;
+  margin: auto;
 }
 
 button:hover:enabled {

@@ -52,7 +52,7 @@ export class AppComponent implements AfterViewInit {
   setHeightData() {
     const viewPortHeight = window.screen.height;
 
-    this.maxNumOfBoxRow = Math.floor((0.7 * viewPortHeight) / (this.boxWidthAndHeightInPx + 2));
+    this.maxNumOfBoxRow = Math.floor((0.75 * viewPortHeight) / (this.boxWidthAndHeightInPx + 2));
     this.currentNumOfBoxRow = Math.floor(this.maxNumOfBoxRow / 2) + 3;
   }
 
