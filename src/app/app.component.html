@@ -8,9 +8,9 @@
         </mat-panel-title>
       </mat-expansion-panel-header>
 
-      <div class="width-slide">
+      <div class="slide">
         <mat-label>Speed</mat-label>
-        <mat-slider #width [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
+        <mat-slider #speed [disabled]="isAnimating || isAlgorithmSet" min="5" [max]="maxNumOfBoxColumn"
           [value]="currentNumOfBoxColumn" (input)="setWidth(width.value)"></mat-slider>
 
       </div>
