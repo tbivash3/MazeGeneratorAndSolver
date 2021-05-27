@@ -25,6 +25,7 @@
     "angular-cli-ghpages": "^1.0.0-rc.1",
     "firebase": "^7.0 || ^8.0",
     "rxjs": "~6.6.0",
+    "tinyqueue": "^2.0.3",
     "tslib": "^2.0.0",
     "zone.js": "~0.11.3"
   },

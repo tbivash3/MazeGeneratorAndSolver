@@ -51,35 +51,14 @@ export class Utility {
         return graph;
     }
 
-    findDistance(node: number, destinationNode: number, width: number): number {
-
-        let tempNode = destinationNode;
-
-        if (node > destinationNode) {
-            destinationNode = node;
-            node = tempNode;
-        }
+    findDistance(node: number, destinationNode: number, width: number): any {
 
         let heightDiff = 0;
         let widthDiff = 0;
 
-        let temp = node;
-        while (true) {
+        widthDiff = Math.abs(node % width - destinationNode % width);
 
-            if ((temp + width) <= destinationNode) {
-                heightDiff += 1;
-            } else {
-                break;
-            }
-
-            temp += width;
-        }
-
-        if (widthDiff == 0) {
-            widthDiff = Math.abs(node - destinationNode);
-        } else {
-            widthDiff = Math.abs(destinationNode - temp);
-        }
+        heightDiff = Math.floor(Math.abs(node - destinationNode) / width);
 
         return Math.sqrt(Math.pow(heightDiff, 2) + Math.pow(widthDiff, 2));
     }
