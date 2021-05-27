@@ -196,7 +196,7 @@ export class AppComponent implements AfterViewInit {
 
   greedy() {
     let paths = this.greedyBestFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.animatePathFinder(paths, []);
+    this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
 

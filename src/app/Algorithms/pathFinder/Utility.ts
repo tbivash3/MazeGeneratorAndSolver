@@ -62,4 +62,17 @@ export class Utility {
 
         return Math.sqrt(Math.pow(heightDiff, 2) + Math.pow(widthDiff, 2));
     }
+
+    findBestPath(searchPath: NodePath[], destination: number) {
+        let bestPath: NodePath[] = [];
+
+        for (let i = searchPath.length - 1; i >= 0; i--) {
+            if (searchPath[i].nextNode == destination) {
+                bestPath.push(searchPath[i]);
+                destination = searchPath[i].node;
+            }
+        }
+
+        return bestPath;
+    }
 }

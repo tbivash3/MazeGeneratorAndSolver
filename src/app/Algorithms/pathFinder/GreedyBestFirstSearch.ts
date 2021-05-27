@@ -11,7 +11,11 @@ export class GreedyBestFirstSearch {
 
         let graph = this.utility.createNodeGraph(width, height, traversalArray);
 
-        return this.search(graph, 0, width * height - 1);
+        let searchPath = this.search(graph, 0, width * height - 1);
+
+        let bestPath = this.utility.findBestPath(searchPath, width * height - 1);
+
+        return { searchPath, bestPath };
     }
 
     search(graph: Map<number, NodePath[]>, source: number, destination: number) {
