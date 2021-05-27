@@ -248,7 +248,6 @@ export class AppComponent implements AfterViewInit {
 
       const directionStringArr = Helper.getDirectionStringArr(direction);
 
-      await new Promise((r) => setTimeout(r, this.animateSpeed));
       if (traversal.length == 4) {
         document
           .getElementById('box' + fromCell)
@@ -268,5 +267,36 @@ export class AppComponent implements AfterViewInit {
       }
     }
     this.isAnimating = false;
+  }
+
+  resetGeneratedMaze() {
+    for (let i = 0; i < this.traversalArray.length; i++) {
+      const traversal = this.traversalArray[i];
+
+      const fromCell = traversal[0];
+      const toCell = traversal[1];
+      const direction = traversal[2];
+
+      const directionStringArr = Helper.getDirectionStringArr(direction);
+
+
+      if (traversal.length == 4) {
+        document
+          .getElementById('box' + fromCell)
+          ?.classList.add(directionStringArr[0] + 'border-collapse-black');
+
+        document
+          .getElementById('box' + toCell)
+          ?.classList.add(directionStringArr[1] + 'border-collapse-black');
+      } else {
+        document
+          .getElementById('box' + fromCell)
+          ?.classList.add(directionStringArr[0] + 'border-collapse');
+
+        document
+          .getElementById('box' + toCell)
+          ?.classList.add(directionStringArr[1] + 'border-collapse');
+      }
+    }
   }
 }
