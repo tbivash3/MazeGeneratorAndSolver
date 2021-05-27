@@ -4,14 +4,13 @@ import { Helper } from '../utility/helper';
 
 @Injectable({ providedIn: 'root' })
 export class RandomizedPrim {
-  constructor() {}
+  constructor() { }
 
   createMaze(width: number, height: number, traversalArray: number[][]) {
     let visited = new Set<number>();
     let frontier: number[][] = [];
 
     this.visit(0, width, height, traversalArray, visited, frontier);
-    console.log('Here');
   }
 
   visit(

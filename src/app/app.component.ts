@@ -8,6 +8,8 @@ import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 import { NodePath } from './algorithms/utility/Node';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DepthFirstSearch } from './algorithms/pathFinder/DepthFirstSearch';
+import { AStar } from './algorithms/pathFinder/AStar';
+import { GreedyBestFirstSearch } from './algorithms/pathFinder/GreedyBestFirstSearch';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +25,9 @@ export class AppComponent implements AfterViewInit {
     private randomizedKruskal: RandomizedKruskal,
     private randomizedPrim: RandomizedPrim,
     private breadthFirstSearch: BreadthFirstSearch,
-    private depthFirstSearch: DepthFirstSearch
+    private depthFirstSearch: DepthFirstSearch,
+    private aStarSearch: AStar,
+    private greedyBestFirstSearch: GreedyBestFirstSearch,
   ) { }
 
   defaultAnimationSpeedText = "Change Animation Speed";
@@ -184,6 +188,20 @@ export class AppComponent implements AfterViewInit {
     let paths = this.depthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
 
     this.animatePathFinder(paths.searchPath, paths.bestPath);
+  }
+
+  aStar() {
+    let paths = this.aStarSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
+
+
+    this.animatePathFinder(paths, []);
+
+
+  }
+  greedy() {
+    let paths = this.greedyBestFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
+
+    this.animatePathFinder(paths, []);
   }
 
 

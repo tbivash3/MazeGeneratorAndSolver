@@ -4,7 +4,7 @@ import { Utility } from './Utility';
 import TinyQueue from 'tinyqueue';
 
 @Injectable({ providedIn: 'root' })
-export class AStar {
+export class GreedyBestFirstSearch {
     constructor(private utility: Utility) { }
 
     findPath(width: number, height: number, traversalArray: number[][]) {
@@ -63,8 +63,8 @@ export class AStar {
 
     getPriorityQueue() {
         return new TinyQueue([], function (a: NodePath, b: NodePath) {
-            const totalDistA = a.distFromSource + a.distFromDestination;
-            const totalDistB = b.distFromSource + b.distFromDestination;
+            const totalDistA = a.distFromDestination;
+            const totalDistB = b.distFromDestination;
 
             return totalDistA - totalDistB;
         });
