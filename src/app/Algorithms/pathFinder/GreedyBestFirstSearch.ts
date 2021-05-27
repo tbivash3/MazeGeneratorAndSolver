@@ -36,8 +36,6 @@ export class GreedyBestFirstSearch {
 
             const node = queue.pop();
 
-            console.log(node);
-
             if (node) {
                 searchPath.push(node);
                 visited.add(node.nextNode);

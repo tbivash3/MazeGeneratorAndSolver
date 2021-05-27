@@ -7,58 +7,77 @@ import TinyQueue from 'tinyqueue';
 export class AStar {
     constructor(private utility: Utility) { }
 
+    finalNode: any;
+
     findPath(width: number, height: number, traversalArray: number[][]) {
 
         let graph = this.utility.createNodeGraph(width, height, traversalArray);
 
-        return this.search(graph, 0, width * height - 1);
-    }
-
-    search(graph: Map<number, NodePath[]>, source: number, destination: number) {
-
         let searchPath: NodePath[] = [];
 
         let allPaths: NodePath[][] = [];
-
-        let visited: Set<number> = new Set();
+        allPaths.push([]);
 
         let queue = this.getPriorityQueue();
 
-        let adjacentNodes = graph.get(source) || [];
+        this.search(graph, 0, width * height - 1, new Set(), searchPath, queue);
 
-        adjacentNodes.forEach(node => {
-            queue.push(node);
-        })
+        const bestPath = this.findBestPath(graph, 0, this.finalNode);
+
+        return { searchPath, bestPath };
+    }
+
+    findBestPath(graph: Map<number, NodePath[]>, source: number, destination: number) {
+
+        let bestPath: NodePath[] = [];
+        bestPath.push(this.finalNode);
+
+        while (true) {
+
+            if (destination == source) break;
+
+            graph.get(destination)?.forEach(path => {
+
+                if (path.parentNode) {
+                    bestPath.push(path);
+                    destination = path.parentNode;
+                }
+
+            })
+
+        }
+
+        return bestPath;
+
+    }
+
+    search(graph: Map<number, NodePath[]>, source: number, destination: number, visited: Set<number>, searchPath: NodePath[], queue: TinyQueue<NodePath>) {
+
+        let sourceNodePaths = graph.get(source) || [];
 
         visited.add(source);
 
-        while (queue.length) {
+        sourceNodePaths.forEach(path => {
 
-            const node = queue.pop();
-
-            console.log(node);
-
-            if (node) {
-                searchPath.push(node);
-                visited.add(node.nextNode);
+            if (!visited.has(path.nextNode)) {
+                path.parentNode = path.node;
+                queue.push(path);
             }
 
-            if (node?.nextNode == destination) {
-                break;
+        })
+
+        const node = queue.pop();
+
+        if (node) {
+            searchPath.push(node);
+
+            if (node.nextNode == destination) {
+                this.finalNode = node;
+                return;
             }
-
-            adjacentNodes = graph.get(node?.nextNode || 0) || [];
-
-
-            adjacentNodes.forEach(node => {
-
-                if (!visited.has(node.nextNode)) {
-                    queue.push(node);
-                }
-            })
         }
 
-        return searchPath;
+        this.search(graph, node?.nextNode || 0, destination, visited, searchPath, queue);
     }
 
     getPriorityQueue() {
@@ -71,3 +90,5 @@ export class AStar {
     }
 
 }
+
+

@@ -186,21 +186,16 @@ export class AppComponent implements AfterViewInit {
 
   dfs() {
     let paths = this.depthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-
     this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
 
   aStar() {
     let paths = this.aStarSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-
-
-    this.animatePathFinder(paths, []);
-
-
+    this.animatePathFinder(paths.searchPath, paths.bestPath);
   }
+
   greedy() {
     let paths = this.greedyBestFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-
     this.animatePathFinder(paths, []);
   }
 
