@@ -174,3 +174,122 @@ button:hover:enabled {
   background-color: rgb(234, 245, 78);
 }
 
+@media only screen and (max-width: 1350px) {
+
+  mat-expansion-panel-header {
+    height: 40px;
+  }
+
+  .animationSpeed {
+    left: 8%;
+    width: 30%;
+    top: 45px;
+    
+  }
+
+  .mazeAlgorithms {
+    width: 30%;
+    left: 8%;
+    z-index: 1;
+  }
+
+  .pathAlgorithms {
+    left: 62%;
+    width: 30%;
+    z-index: 1;
+  }
+
+  .slider {
+    left: 62%;
+    width: 30%;
+    top: 45px;
+  }
+
+
+  #buttonContainer {
+    left: 45.5%;
+  }
+
+  #buttonContainer button {
+    width: 50%;
+    height: 40px;
+    margin-bottom: 3px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+  .animationSpeed {
+    left: 2%;
+    width: 40%;
+  }
+
+  .mazeAlgorithms {
+    width: 40%;
+    left: 2%;
+  }
+
+  .pathAlgorithms {
+    left: 59%;
+    width: 40%;
+   
+  }
+
+  .slider {
+    left: 59%;;
+    width: 40%;
+  }
+
+  #buttonContainer {
+    left: 44%;
+
+  }
+
+  #buttonContainer button {
+    width: 70%;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+
+  mat-expansion-panel-header {
+    height: 20px;
+  }
+
+  .animationSpeed {
+    left: 0%;
+    width: 74%;
+    top: 44px;
+    z-index: 2;
+  }
+
+  .mazeAlgorithms {
+    width: 74%;
+    left: 0%;
+    top: 0%;
+    z-index: 4;
+  }
+
+  .pathAlgorithms {
+    left: 0%;
+    width: 74%;
+   top: 22px;
+   z-index: 3;
+  }
+
+  .slider {
+    left: 0%;;
+    width: 74%;
+    top: 66px;
+    z-index: 1;
+  }
+
+  #buttonContainer {
+    left: 76%;
+    width: 24%;
+  }
+
+  #buttonContainer button {
+    width: 85%;
+  }
+}
+
