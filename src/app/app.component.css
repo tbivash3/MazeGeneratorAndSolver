@@ -18,7 +18,6 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  border: 1px solid white;
 }
 
 .nav-bar {
@@ -91,28 +90,28 @@ button:hover:enabled {
 }
 
 .box {
-  background-color: rgb(55, 139, 69);
-  border: 1px solid white;
+  background-color: rgba(0, 247, 255, 0.835);
+  border: 1px solid rgb(138, 133, 133);
 }
 
 .right-border-collapse {
-  border-right-color: blue;
-  background-color: blue;
+  border-right-color: rgb(79, 79, 255);
+  background-color: rgb(79, 79, 255);
 }
 
 .left-border-collapse {
-  border-left-color: blue;
-  background-color: blue;
+  border-left-color: rgb(79, 79, 255);
+  background-color: rgb(79, 79, 255);
 }
 
 .top-border-collapse {
-  border-top-color: blue;
-  background-color: blue;
+  border-top-color: rgb(79, 79, 255);
+  background-color: rgb(79, 79, 255);
 }
 
 .bottom-border-collapse {
-  border-bottom-color: blue;
-  background-color: blue;
+  border-bottom-color: rgb(79, 79, 255);
+  background-color: rgb(79, 79, 255);
 }
 
 .right-border-collapse-black {
