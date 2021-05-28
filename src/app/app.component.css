@@ -136,23 +136,23 @@ button:hover:enabled {
 }
 
 .right-border-collapse-all-paths {
-  border-right-color: rgb(35, 248, 255);
-  background-color: rgb(35, 248, 255);
+  border-right-color: rgb(21, 219, 226);
+  background-color: rgb(21, 219, 226);
 }
 
 .left-border-collapse-all-paths {
-  border-left-color:  rgb(35, 248, 255);
-  background-color: rgb(35, 248, 255);
+  border-left-color:  rgb(21, 219, 226);
+  background-color: rgb(21, 219, 226);
 }
 
 .top-border-collapse-all-paths {
-  border-top-color:  rgb(35, 248, 255);
-  background-color:  rgb(35, 248, 255);
+  border-top-color:  rgb(21, 219, 226);
+  background-color:  rgb(21, 219, 226);
 }
 
 .bottom-border-collapse-all-paths {
-  border-bottom-color:  rgb(35, 248, 255);
-  background-color:  rgb(35, 248, 255);
+  border-bottom-color:  rgb(21, 219, 226);
+  background-color:  rgb(21, 219, 226);
 }
 
 .right-border-collapse-best-path {

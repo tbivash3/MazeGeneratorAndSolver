@@ -49,13 +49,19 @@ export class AppComponent implements AfterViewInit {
   mazeWidthInPx = 500;
   boxWidthAndHeightInPx = 0;
 
-  animateSpeed = 0;
+  animationSpeed = 4;
 
   isAnimating = false;
   isAlgorithmSet = false;
 
   length: number[] = [];
   traversalArray: number[][] = [];
+
+  animationSpeedFactor: number = 5;
+
+  setAnimationSpeed(speed: number) {
+    this.animationSpeedFactor = 10 / speed;
+  }
 
   ngAfterViewInit(): void {
     this.setWidthData();
@@ -215,10 +221,11 @@ export class AppComponent implements AfterViewInit {
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-all-paths');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-all-paths');
 
-      await new Promise((r) => setTimeout(r, this.animateSpeed));
+      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
     }
 
     await new Promise((r) => setTimeout(r, 1000));
+
     for (let i = 0; i < bestPath.length; i++) {
 
       const nodePath = bestPath[i];
@@ -232,7 +239,7 @@ export class AppComponent implements AfterViewInit {
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
 
-      await new Promise((r) => setTimeout(r, this.animateSpeed));
+      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
     }
   }
 
@@ -256,7 +263,7 @@ export class AppComponent implements AfterViewInit {
         document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse');
       }
 
-      await new Promise((r) => setTimeout(r, this.animateSpeed));
+      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
     }
     this.isAnimating = false;
   }
