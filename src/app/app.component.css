@@ -136,43 +136,42 @@ button:hover:enabled {
 }
 
 .right-border-collapse-all-paths {
-  border-right-color: rgb(255, 0, 0);
-  background-color: rgb(255, 0, 0);
+  border-right-color: rgb(35, 248, 255);
+  background-color: rgb(35, 248, 255);
 }
 
 .left-border-collapse-all-paths {
-  border-left-color:  rgb(255, 0, 0);
-  background-color: rgb(255, 0, 0);
+  border-left-color:  rgb(35, 248, 255);
+  background-color: rgb(35, 248, 255);
 }
 
 .top-border-collapse-all-paths {
-  border-top-color:  rgb(255, 0, 0);
-  background-color:  rgb(255, 0, 0);
+  border-top-color:  rgb(35, 248, 255);
+  background-color:  rgb(35, 248, 255);
 }
 
 .bottom-border-collapse-all-paths {
-  border-bottom-color:  rgb(255, 0, 0);
-  background-color:  rgb(246, 73, 73);
+  border-bottom-color:  rgb(35, 248, 255);
+  background-color:  rgb(35, 248, 255);
 }
 
-
 .right-border-collapse-best-path {
-  border-right-color: rgb(255, 161, 73);
-  background-color: rgb(255, 161, 73);
+  border-right-color: rgb(234, 245, 78);
+  background-color: rgb(234, 245, 78);
 }
 
 .left-border-collapse-best-path {
-  border-left-color: rgb(255, 161, 73);
-  background-color: rgb(255, 161, 73);
+  border-left-color: rgb(234, 245, 78);
+  background-color: rgb(234, 245, 78);
 }
 
 .top-border-collapse-best-path {
-  border-top-color: rgb(255, 161, 73);
-  background-color: rgb(255, 161, 73);
+  border-top-color: rgb(234, 245, 78);
+  background-color: rgb(234, 245, 78);
 }
 
 .bottom-border-collapse-best-path {
-  border-bottom-color: rgb(255, 161, 73);
-  background-color: rgb(255, 161, 73);
+  border-bottom-color: rgb(234, 245, 78);
+  background-color: rgb(234, 245, 78);
 }
 
