@@ -9,16 +9,20 @@ import { NodePath } from './algorithms/utility/Node';
 import { DepthFirstSearch } from './algorithms/pathFinder/DepthFirstSearch';
 import { AStar } from './algorithms/pathFinder/AStar';
 import { GreedyBestFirstSearch } from './algorithms/pathFinder/GreedyBestFirstSearch';
+import { Store } from '@ngrx/store';
+import { state } from './state/state';
+import { changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements AfterViewInit {
+export class AppComponent implements OnInit, AfterViewInit {
   title = 'MazeGeneratorAndSolver';
 
   constructor(
+    private store: Store<{ appStore: state }>,
     private randomizedDepthFirst: RandomizedDepthFirst,
     private binaryTree: BinaryTree,
     private randomizedKruskal: RandomizedKruskal,
@@ -28,6 +32,10 @@ export class AppComponent implements AfterViewInit {
     private aStarSearch: AStar,
     private greedyBestFirstSearch: GreedyBestFirstSearch,
   ) { }
+
+  ngOnInit(): void {
+    this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
+  }
 
   defaultAnimationSpeedText = "Change Animation Speed";
   defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
@@ -73,6 +81,9 @@ export class AppComponent implements AfterViewInit {
 
     this.maxNumOfBoxRow = Math.floor((0.75 * viewPortHeight) / (this.boxWidthAndHeightInPx + 2));
     this.currentNumOfBoxRow = Math.floor(this.maxNumOfBoxRow / 2) + 3;
+
+    this.store.dispatch(setMazeMaxHeight({ height: this.maxNumOfBoxRow }));
+    this.store.dispatch(changeMazeHeight({ height: this.currentNumOfBoxRow }));
   }
 
   setWidthData() {
@@ -89,6 +100,9 @@ export class AppComponent implements AfterViewInit {
     this.boxWidthAndHeightInPx = Math.floor(widthMinusBorder / this.maxNumOfBoxColumn);
     this.currentNumOfBoxColumn = Math.floor(this.maxNumOfBoxColumn / 2) + 3;
     this.mazeWidthInPx = (this.boxWidthAndHeightInPx + 2) * this.currentNumOfBoxColumn;
+
+    this.store.dispatch(setMazeMaxWidth({ width: this.maxNumOfBoxColumn }));
+    this.store.dispatch(changeMazeWidth({ width: this.currentNumOfBoxColumn }));
   }
 
   @ViewChild('mazeContainer')
@@ -137,73 +151,6 @@ export class AppComponent implements AfterViewInit {
     this.currentNumOfBoxRow = Number(height);
     this.setLength();
   }
-
-
-  createRandomizedDFSMaze() {
-    this.traversalArray = [];
-    this.randomizedDepthFirst.createMaze(
-      this.currentNumOfBoxColumn,
-      this.currentNumOfBoxRow,
-      this.traversalArray
-    );
-    this.isAlgorithmSet = true;
-
-    this.currentMazeAlgorithmText = "Randomized Depth First";
-  }
-
-  createBinarySearchMaze() {
-    this.traversalArray = [];
-    this.binaryTree.createMaze(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.isAlgorithmSet = true;
-
-    this.currentMazeAlgorithmText = "Binary Tree";
-  }
-
-  createRandomizedKruskalMaze() {
-    this.traversalArray = [];
-    this.randomizedKruskal.createMaze(
-      this.currentNumOfBoxColumn,
-      this.currentNumOfBoxRow,
-      this.traversalArray
-    );
-    this.isAlgorithmSet = true;
-
-    this.currentMazeAlgorithmText = "Randomized Kruskal's";
-  }
-
-  createRandomizedPrimsMaze() {
-    this.traversalArray = [];
-    this.randomizedPrim.createMaze(
-      this.currentNumOfBoxColumn,
-      this.currentNumOfBoxRow,
-      this.traversalArray
-    );
-    this.isAlgorithmSet = true;
-
-    this.currentMazeAlgorithmText = "Randomized Prim's"
-  }
-
-
-  bfs() {
-    let paths = this.breadthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.animatePathFinder(paths.searchPath, paths.bestPath);
-  }
-
-  dfs() {
-    let paths = this.depthFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.animatePathFinder(paths.searchPath, paths.bestPath);
-  }
-
-  aStar() {
-    let paths = this.aStarSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.animatePathFinder(paths.searchPath, paths.bestPath);
-  }
-
-  greedy() {
-    let paths = this.greedyBestFirstSearch.findPath(this.currentNumOfBoxColumn, this.currentNumOfBoxRow, this.traversalArray);
-    this.animatePathFinder(paths.searchPath, paths.bestPath);
-  }
-
 
   async animatePathFinder(allPaths: NodePath[], bestPath: NodePath[]) {
 

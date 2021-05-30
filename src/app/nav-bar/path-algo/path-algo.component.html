@@ -1,1 +1,23 @@
-<p>path-algo works!</p>
+<mat-expansion-panel class="pathAlgorithms">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{currentPathAlgorithmText}}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <button mat-flat-button color="accent" (click)="bfs()">
+        Breadth First Search
+    </button>
+
+    <button mat-flat-button color="accent" (click)="dfs()">
+        Depth First Search
+    </button>
+
+    <button mat-flat-button color="accent" (click)="aStar()">
+        A* Search
+    </button>
+
+    <button mat-flat-button color="accent" (click)="greedy()">
+        Greedy Best First Search
+    </button>
+</mat-expansion-panel>

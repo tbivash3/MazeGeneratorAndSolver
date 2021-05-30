@@ -47,7 +47,7 @@ export class MazeAlgoComponent implements OnInit {
 
   createRandomizedDFSMaze() {
     this.setMazeWidthHeight();
-    this.store.dispatch(setTraversalArray({ array: [] }));
+    this.traversalArray = [];
 
     this.randomizedDepthFirst.createMaze(
       this.mazeWidth,
@@ -55,15 +55,19 @@ export class MazeAlgoComponent implements OnInit {
       this.traversalArray
     );
 
+    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
+
     this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Randomized Depth First";
   }
 
   createBinarySearchMaze() {
     this.setMazeWidthHeight();
-    this.store.dispatch(setTraversalArray({ array: [] }));
+    this.traversalArray = [];
 
     this.binaryTree.createMaze(this.mazeWidth, this.mazeHeight, this.traversalArray);
+
+    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
 
     this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Binary Tree";
@@ -71,27 +75,30 @@ export class MazeAlgoComponent implements OnInit {
 
   createRandomizedKruskalMaze() {
     this.setMazeWidthHeight();
-    this.store.dispatch(setTraversalArray({ array: [] }));
+    this.traversalArray = [];
 
     this.randomizedKruskal.createMaze(
       this.mazeWidth,
       this.mazeHeight,
       this.traversalArray
     );
+    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
+
     this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Randomized Kruskal's";
   }
 
   createRandomizedPrimsMaze() {
     this.setMazeWidthHeight();
-    this.store.dispatch(setTraversalArray({ array: [] }));
-
+    this.traversalArray = [];
 
     this.randomizedPrim.createMaze(
       this.mazeWidth,
       this.mazeHeight,
       this.traversalArray
     );
+    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
+
     this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Randomized Prim's"
   }

@@ -1,0 +1,27 @@
+mat-expansion-panel button{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 1350px) {
+
+  mat-expansion-panel-header {
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 900px) {
+
+  mat-expansion-panel-header {
+    height: 40px;
+  }
+}
+
+@media only screen and (max-width: 650px) {
+
+  mat-expansion-panel-header {
+    height: 25px;
+  }
+}
