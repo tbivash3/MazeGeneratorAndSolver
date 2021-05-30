@@ -1,5 +1,5 @@
 import { Action, createReducer, on, State } from '@ngrx/store';
-import { selectMazeAlgorithm, selectPathAlgorithm, changeAnimationSpeed, changeMazeWidth, changeMazeHeight, startAnimation, resetMaze, setTraversalArray, setAlgorithmSet, setBestPath, setSearchPath, setMazeMaxWidth, setMazeMaxHeight } from './actions';
+import { endAnimation, selectMazeAlgorithm, selectPathAlgorithm, changeAnimationSpeed, changeMazeWidth, changeMazeHeight, startAnimation, resetMaze, setTraversalArray, setAlgorithmSet, setBestPath, setSearchPath, setMazeMaxWidth, setMazeMaxHeight } from './actions';
 import { state } from './state';
 
 export const initialState: state = {
@@ -30,7 +30,8 @@ const _appReducer = createReducer(
     on(changeAnimationSpeed, (state, { speed }) => ({ ...state, animationSpeed: speed })),
     on(changeMazeWidth, (state, { width }) => ({ ...state, mazeWidth: width })),
     on(changeMazeHeight, (state, { height }) => ({ ...state, mazeHeight: height })),
-    on(startAnimation, (state, { start }) => ({ ...state, startAnimation: start })),
+    on(startAnimation, (state) => ({ ...state, isAnimating: true })),
+    on(endAnimation, (state) => ({ ...state, isAnimating: false })),
     on(resetMaze, (state, { reset }) => ({ ...state, reset: reset })),
     on(setMazeMaxWidth, (state, { width }) => ({ ...state, mazeMaxWidth: width })),
     on(setMazeMaxHeight, (state, { height }) => ({ ...state, mazeMaxHeight: height })),

@@ -11,7 +11,7 @@ import { AStar } from './algorithms/pathFinder/AStar';
 import { GreedyBestFirstSearch } from './algorithms/pathFinder/GreedyBestFirstSearch';
 import { Store } from '@ngrx/store';
 import { state } from './state/state';
-import { changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
+import { changeMazeHeight, changeMazeWidth, endAnimation, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
@@ -23,29 +23,29 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   constructor(
     private store: Store<{ appStore: state }>,
-    private randomizedDepthFirst: RandomizedDepthFirst,
-    private binaryTree: BinaryTree,
-    private randomizedKruskal: RandomizedKruskal,
-    private randomizedPrim: RandomizedPrim,
-    private breadthFirstSearch: BreadthFirstSearch,
-    private depthFirstSearch: DepthFirstSearch,
-    private aStarSearch: AStar,
-    private greedyBestFirstSearch: GreedyBestFirstSearch,
   ) { }
 
   ngOnInit(): void {
     this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
+    this.store.select((state) => state.appStore.isAnimating).subscribe((val) => {
+      if (val) {
+        this.animateMazeGeneration()
+      }
+    }
+    );
+
+    this.store.select((state) => state.appStore.animationSpeed).subscribe(speed => {
+      this.animationSpeed = speed;
+    })
+
+    this.store.select((state) => state.appStore.mazeWidth).subscribe(width => {
+      this.setWidth(width);
+    })
+
+    this.store.select((state) => state.appStore.mazeHeight).subscribe(height => {
+      this.setHeight(height);
+    })
   }
-
-  defaultAnimationSpeedText = "Change Animation Speed";
-  defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
-  defaultPathAlgorithmText = "Select Path Finding Algorithm";
-  defaultMazeWidthHeightText = "Select Maze Width/Height";
-
-  currentAnimationSpeedText = "Change Animation Speed";
-  currentMazeAlgorithmText = "Select Maze Generation Algorithm";
-  currentPathAlgorithmText = "Select Path Finding Algorithm";
-  currentMazeWidthHeightText = "Select Maze Width/Height";
 
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
@@ -56,19 +56,13 @@ export class AppComponent implements OnInit, AfterViewInit {
   mazeWidthInPx = 500;
   boxWidthAndHeightInPx = 0;
 
-  animationSpeed = 4;
+  animationSpeed = 0;
 
   isAnimating = false;
   isAlgorithmSet = false;
 
   length: number[] = [];
   traversalArray: number[][] = [];
-
-  animationSpeedFactor: number = 5;
-
-  setAnimationSpeed(speed: number) {
-    this.animationSpeedFactor = 10 / speed;
-  }
 
   ngAfterViewInit(): void {
     this.setWidthData();
@@ -116,15 +110,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   resetAll() {
     this.isAlgorithmSet = false;
     this.isAnimating = false;
-    this.resetAllText();
     this.resetMaze();
-  }
-
-  resetAllText() {
-    this.currentMazeAlgorithmText = this.defaultMazeAlgorithmText;
-    this.currentAnimationSpeedText = this.defaultAnimationSpeedText;
-    this.currentMazeWidthHeightText = this.defaultMazeWidthHeightText;
-    this.currentPathAlgorithmText = this.defaultPathAlgorithmText;
   }
 
   resetMaze() {
@@ -167,7 +153,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-all-paths');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-all-paths');
 
-      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
+      await new Promise((r) => setTimeout(r, this.animationSpeed));
     }
 
     await new Promise((r) => setTimeout(r, 1000));
@@ -185,13 +171,12 @@ export class AppComponent implements OnInit, AfterViewInit {
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
 
-      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
+      await new Promise((r) => setTimeout(r, this.animationSpeed));
     }
   }
 
   async animateMazeGeneration() {
     this.resetAll();
-    this.isAnimating = true;
     for (let i = 0; i < this.traversalArray.length; i++) {
       const traversal = this.traversalArray[i];
 
@@ -209,8 +194,8 @@ export class AppComponent implements OnInit, AfterViewInit {
         document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse');
       }
 
-      await new Promise((r) => setTimeout(r, this.animationSpeed * this.animationSpeedFactor));
+      await new Promise((r) => setTimeout(r, this.animationSpeed));
     }
-    this.isAnimating = false;
+    this.store.dispatch(endAnimation());
   }
 }

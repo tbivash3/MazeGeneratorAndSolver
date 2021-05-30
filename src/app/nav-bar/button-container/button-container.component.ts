@@ -23,7 +23,7 @@ export class ButtonContainerComponent implements OnInit {
   }
 
   animateMazeGeneration() {
-    this.store.dispatch(startAnimation({ start: true }));
+    this.store.dispatch(startAnimation());
   }
 
   resetAll() {

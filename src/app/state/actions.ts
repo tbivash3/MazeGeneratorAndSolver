@@ -19,7 +19,9 @@ export const changeMazeWidth = createAction('[Maze Size Component] Change Maze W
 
 export const changeMazeHeight = createAction('[Maze Size Component] Change Maze Height', props<{ height: number }>());
 
-export const startAnimation = createAction('[Button Container Component] Start Maze Animation', props<{ start: boolean }>());
+export const startAnimation = createAction('[Button Container Component] Start Maze Animation');
+
+export const endAnimation = createAction('[App Component] Maze Animation Complete');
 
 export const resetMaze = createAction('[Button Container Component] Reset Maze', props<{ reset: boolean }>());
 

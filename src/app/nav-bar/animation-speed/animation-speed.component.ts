@@ -13,6 +13,8 @@ export class AnimationSpeedComponent implements OnInit {
 
   currentAnimationSpeedText = "Change Animation Speed";
 
+  defaultAnimationSpeedText = "Change Animation Speed";
+
   animationSpeedFactor: number = 5;
   animationSpeed = 4;
 
@@ -22,6 +24,7 @@ export class AnimationSpeedComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
+    this.store.dispatch(changeAnimationSpeed({ speed: 22 }));
   }
 
   setAnimationSpeed(speed: number) {
