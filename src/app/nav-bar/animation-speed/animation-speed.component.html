@@ -1,1 +1,13 @@
-<p>animation-speed works!</p>
+<mat-expansion-panel class="animationSpeed">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{ currentAnimationSpeedText }}
+        </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="slide">
+        <mat-label>Speed</mat-label>
+        <mat-slider #animationSpeed [disabled]="isAnimating$ | async" type="range" min="1" max="10" value="5"
+            (input)="setAnimationSpeed(animationSpeed.value || 0)"></mat-slider>
+    </div>
+</mat-expansion-panel>

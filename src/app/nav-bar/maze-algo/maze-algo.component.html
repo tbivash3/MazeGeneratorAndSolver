@@ -1,1 +1,27 @@
-<p>maze-algo works!</p>
+<mat-expansion-panel class="mazeAlgorithms">
+    <mat-expansion-panel-header>
+        <mat-panel-title>
+            {{ currentMazeAlgorithmText }}
+        </mat-panel-title>
+
+    </mat-expansion-panel-header>
+    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isAlgorithmSet$ | async"
+        (click)="createRandomizedDFSMaze()">
+        Randomized Depth First
+    </button>
+    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isAlgorithmSet$ | async"
+        (click)="createBinarySearchMaze()">
+        Binary Tree
+    </button>
+
+    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isAlgorithmSet$ | async"
+        (click)="createRandomizedKruskalMaze()">
+        Randomized Kruskal's
+    </button>
+
+    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isAlgorithmSet$ | async"
+        (click)="createRandomizedPrimsMaze()">
+        Randomized Prim's
+    </button>
+
+</mat-expansion-panel>

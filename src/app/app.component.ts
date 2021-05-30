@@ -6,7 +6,6 @@ import { RandomizedKruskal } from "./algorithms/mazeGeneration/RandomizerKruskal
 import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
 import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 import { NodePath } from './algorithms/utility/Node';
-import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { DepthFirstSearch } from './algorithms/pathFinder/DepthFirstSearch';
 import { AStar } from './algorithms/pathFinder/AStar';
 import { GreedyBestFirstSearch } from './algorithms/pathFinder/GreedyBestFirstSearch';
@@ -43,7 +42,7 @@ export class AppComponent implements AfterViewInit {
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
-  maxNumOfBoxColumn = 70;
+  maxNumOfBoxColumn = 50;
   maxNumOfBoxRow = 0;
 
   mazeWidthInPx = 500;

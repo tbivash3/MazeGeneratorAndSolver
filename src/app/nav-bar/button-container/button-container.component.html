@@ -1,1 +1,7 @@
-<p>button-container works!</p>
+<div id="buttonContainer">
+    <button mat-flat-button color="warn" [disabled]="isAnimating$ | async" [disabled]="isAlgorithmSet$ | async"
+        (click)="animateMazeGeneration()">
+        Animate
+    </button>
+    <button mat-flat-button color="warn" [disabled]="isAnimating$ | async" (click)="resetAll()">Reset</button>
+</div>
