@@ -17,6 +17,8 @@ export class MazeAlgoComponent implements OnInit {
 
   currentMazeAlgorithmText = "Select Maze Generation Algorithm";
 
+  defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
+
   isAnimating$!: Observable<boolean>;
 
   isAlgorithmSet$!: Observable<boolean>;

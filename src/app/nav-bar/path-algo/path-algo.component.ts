@@ -17,6 +17,8 @@ export class PathAlgoComponent implements OnInit {
 
   currentPathAlgorithmText = "Select Path Finding Algorithm";
 
+  defaultPathAlgorithmText = "Select Path Finding Algorithm";
+
   mazeWidth!: number;
 
   mazeHeight!: number;
@@ -45,23 +47,31 @@ export class PathAlgoComponent implements OnInit {
     let paths = this.breadthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(setSearchPath({ array: paths.searchPath }));
     this.store.dispatch(setBestPath({ array: paths.bestPath }));
+
+    this.currentPathAlgorithmText = "Breadth First Search";
   }
 
   dfs() {
     let paths = this.depthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(setSearchPath({ array: paths.searchPath }));
     this.store.dispatch(setBestPath({ array: paths.bestPath }));
+
+    this.currentPathAlgorithmText = "Depth First Search";
   }
 
   aStar() {
     let paths = this.aStarSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(setSearchPath({ array: paths.searchPath }));
     this.store.dispatch(setBestPath({ array: paths.bestPath }));
+
+    this.currentPathAlgorithmText = "A* First Search";
   }
 
   greedy() {
     let paths = this.greedyBestFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(setSearchPath({ array: paths.searchPath }));
     this.store.dispatch(setBestPath({ array: paths.bestPath }));
+
+    this.currentPathAlgorithmText = "Greedy Best First Search";
   }
 }

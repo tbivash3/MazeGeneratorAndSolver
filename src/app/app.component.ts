@@ -47,10 +47,15 @@ export class AppComponent implements OnInit, AfterViewInit {
     })
   }
 
+  defaultAnimationSpeedText = "Change Animation Speed";
+  defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
+  defaultPathAlgorithmText = "Select Path Finding Algorithm";
+  defaultMazeWidthHeightText = "Select Maze Width/Height";
+
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
-  maxNumOfBoxColumn = 50;
+  maxNumOfBoxColumn = 55;
   maxNumOfBoxRow = 0;
 
   mazeWidthInPx = 500;
