@@ -28,7 +28,7 @@ export class MazeSizeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
-    this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isAlgorithmSet);
+    this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isMazeAlgorithmSet);
     this.mazeWidth$ = this.store.select((state) => state.appStore.mazeWidth);
     this.mazeHeight$ = this.store.select((state) => state.appStore.mazeHeight);
     this.mazeMaxWidth$ = this.store.select((state) => state.appStore.mazeMaxWidth);

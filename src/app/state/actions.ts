@@ -1,27 +1,23 @@
 import { createAction, props } from '@ngrx/store';
 import { NodePath } from '../algorithms/utility/Node';
 
-export const selectMazeAlgorithm = createAction('[Maze Algo Component] Select Maze Algorithm', props<{ alg: string }>());
+export const createMaze = createAction('[Maze Algo Component] Create Maze', props<{ array: number[][] }>());
 
-export const setTraversalArray = createAction('[Maze Algo Component] Set Traversal Array', props<{ array: number[][] }>())
+export const animateMaze = createAction('[Maze Algo Component] Animate Maze');
 
-export const setAlgorithmSet = createAction('[Maze Algo Component] Set Algorithm Set', props<{ val: boolean }>())
+export const animateMazeComplete = createAction('[Maze Algo Component] Animate Maze Complete');
 
-export const selectPathAlgorithm = createAction('[Path Algo Component] Select Path Finding Algorithm', props<{ alg: string }>());
+export const createPath = createAction('[Path Algo Component] Create Path', props<{ searchPath: NodePath[], bestPath: NodePath[] }>());
 
-export const setSearchPath = createAction('Path Algo Component] Set Search Path', props<{ array: NodePath[] }>())
+export const animatePath = createAction('[Path Algo Component] Animate Path');
 
-export const setBestPath = createAction('Path Algo Component] Set Best Path', props<{ array: NodePath[] }>())
+export const animatePathComplete = createAction('[Path Algo Component] Animate Path Complete');
 
 export const changeAnimationSpeed = createAction('[Animation Speed Component] Change Animation Speed', props<{ speed: number }>());
 
 export const changeMazeWidth = createAction('[Maze Size Component] Change Maze Width', props<{ width: number }>());
 
 export const changeMazeHeight = createAction('[Maze Size Component] Change Maze Height', props<{ height: number }>());
-
-export const startAnimation = createAction('[Button Container Component] Start Maze Animation');
-
-export const endAnimation = createAction('[App Component] Maze Animation Complete');
 
 export const resetMaze = createAction('[Button Container Component] Reset Maze', props<{ reset: boolean }>());
 

@@ -5,7 +5,7 @@ import { BinaryTree } from 'src/app/algorithms/mazeGeneration/BinaryTree';
 import { RandomizedDepthFirst } from 'src/app/algorithms/mazeGeneration/RandomizedDepthFirst';
 import { RandomizedPrim } from 'src/app/algorithms/mazeGeneration/RandomizedPrim';
 import { RandomizedKruskal } from 'src/app/algorithms/mazeGeneration/RandomizerKruskal\'s';
-import { setAlgorithmSet, setTraversalArray } from 'src/app/state/actions';
+import { createMaze } from 'src/app/state/actions';
 import { state } from 'src/app/state/state';
 
 @Component({
@@ -21,11 +21,7 @@ export class MazeAlgoComponent implements OnInit {
 
   isAnimating$!: Observable<boolean>;
 
-  isAlgorithmSet$!: Observable<boolean>;
-
-  mazeWidth$!: Observable<number>;
-
-  mazeHeight$!: Observable<number>;
+  isMazeAlgorithmSet$!: Observable<boolean>;
 
   mazeWidth = 0;
 
@@ -42,13 +38,12 @@ export class MazeAlgoComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
-    this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isAlgorithmSet);
-    this.mazeWidth$ = this.store.select((state) => state.appStore.mazeWidth);
-    this.mazeHeight$ = this.store.select((state) => state.appStore.mazeHeight);
+    this.isMazeAlgorithmSet$ = this.store.select((state) => state.appStore.isMazeAlgorithmSet);
+    this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
+    this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
   }
 
   createRandomizedDFSMaze() {
-    this.setMazeWidthHeight();
     this.traversalArray = [];
 
     this.randomizedDepthFirst.createMaze(
@@ -57,26 +52,22 @@ export class MazeAlgoComponent implements OnInit {
       this.traversalArray
     );
 
-    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
+    this.store.dispatch(createMaze({ array: this.traversalArray }));
 
-    this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Randomized Depth First";
   }
 
   createBinarySearchMaze() {
-    this.setMazeWidthHeight();
     this.traversalArray = [];
 
     this.binaryTree.createMaze(this.mazeWidth, this.mazeHeight, this.traversalArray);
 
-    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
+    this.store.dispatch(createMaze({ array: this.traversalArray }));
 
-    this.store.dispatch(setAlgorithmSet({ val: true }));
     this.currentMazeAlgorithmText = "Binary Tree";
   }
 
   createRandomizedKruskalMaze() {
-    this.setMazeWidthHeight();
     this.traversalArray = [];
 
     this.randomizedKruskal.createMaze(
@@ -84,14 +75,13 @@ export class MazeAlgoComponent implements OnInit {
       this.mazeHeight,
       this.traversalArray
     );
-    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
 
-    this.store.dispatch(setAlgorithmSet({ val: true }));
+    this.store.dispatch(createMaze({ array: this.traversalArray }));
+
     this.currentMazeAlgorithmText = "Randomized Kruskal's";
   }
 
   createRandomizedPrimsMaze() {
-    this.setMazeWidthHeight();
     this.traversalArray = [];
 
     this.randomizedPrim.createMaze(
@@ -99,14 +89,9 @@ export class MazeAlgoComponent implements OnInit {
       this.mazeHeight,
       this.traversalArray
     );
-    this.store.dispatch(setTraversalArray({ array: this.traversalArray }));
 
-    this.store.dispatch(setAlgorithmSet({ val: true }));
+    this.store.dispatch(createMaze({ array: this.traversalArray }));
+
     this.currentMazeAlgorithmText = "Randomized Prim's"
-  }
-
-  setMazeWidthHeight() {
-    this.mazeWidth$.subscribe(width => this.mazeWidth = width);
-    this.mazeHeight$.subscribe(height => this.mazeHeight = height);
   }
 }

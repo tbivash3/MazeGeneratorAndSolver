@@ -1,17 +1,9 @@
 import { AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { RandomizedDepthFirst } from './algorithms/mazeGeneration/RandomizedDepthFirst';
-import { BinaryTree } from './algorithms/mazeGeneration/BinaryTree';
 import { Helper } from './algorithms/utility/helper';
-import { RandomizedKruskal } from "./algorithms/mazeGeneration/RandomizerKruskal's";
-import { RandomizedPrim } from './algorithms/mazeGeneration/RandomizedPrim';
-import { BreadthFirstSearch } from './algorithms/pathFinder/BreadthFirstSearch';
 import { NodePath } from './algorithms/utility/Node';
-import { DepthFirstSearch } from './algorithms/pathFinder/DepthFirstSearch';
-import { AStar } from './algorithms/pathFinder/AStar';
-import { GreedyBestFirstSearch } from './algorithms/pathFinder/GreedyBestFirstSearch';
 import { Store } from '@ngrx/store';
 import { state } from './state/state';
-import { changeMazeHeight, changeMazeWidth, endAnimation, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
+import { animateMazeComplete, changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
@@ -20,32 +12,6 @@ import { changeMazeHeight, changeMazeWidth, endAnimation, setMazeMaxHeight, setM
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'MazeGeneratorAndSolver';
-
-  constructor(
-    private store: Store<{ appStore: state }>,
-  ) { }
-
-  ngOnInit(): void {
-    this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
-    this.store.select((state) => state.appStore.isAnimating).subscribe((val) => {
-      if (val) {
-        this.animateMazeGeneration()
-      }
-    }
-    );
-
-    this.store.select((state) => state.appStore.animationSpeed).subscribe(speed => {
-      this.animationSpeed = speed;
-    })
-
-    this.store.select((state) => state.appStore.mazeWidth).subscribe(width => {
-      this.setWidth(width);
-    })
-
-    this.store.select((state) => state.appStore.mazeHeight).subscribe(height => {
-      this.setHeight(height);
-    })
-  }
 
   defaultAnimationSpeedText = "Change Animation Speed";
   defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
@@ -68,6 +34,41 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   length: number[] = [];
   traversalArray: number[][] = [];
+
+  searchPaths: NodePath[] = [];
+  bestPath: NodePath[] = [];
+
+  constructor(
+    private store: Store<{ appStore: state }>,
+  ) { }
+
+  ngOnInit(): void {
+    this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
+    this.store.select((state) => state.appStore.searchPaths).subscribe(array => this.searchPaths = array);
+    this.store.select((state) => state.appStore.bestPath).subscribe(array => this.bestPath = array);
+
+    this.store.select((state) => state.appStore.animateMaze).subscribe((val) => {
+      if (val) this.animateMazeGeneration();
+    });
+
+    this.store.select((state) => state.appStore.animatePath).subscribe((val) => {
+      if (val) this.animatePathFinder();
+    });
+
+    this.store.select((state) => state.appStore.animationSpeed).subscribe(speed => {
+      this.animationSpeed = speed;
+    })
+
+    this.store.select((state) => state.appStore.mazeWidth).subscribe(width => {
+      this.setWidth(width);
+    })
+
+    this.store.select((state) => state.appStore.mazeHeight).subscribe(height => {
+      this.setHeight(height);
+    })
+  }
+
+
 
   ngAfterViewInit(): void {
     this.setWidthData();
@@ -143,11 +144,11 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.setLength();
   }
 
-  async animatePathFinder(allPaths: NodePath[], bestPath: NodePath[]) {
+  async animatePathFinder() {
 
-    for (let i = 0; i < allPaths.length; i++) {
+    for (let i = 0; i < this.searchPaths.length; i++) {
 
-      const nodePath = allPaths[i];
+      const nodePath = this.searchPaths[i];
 
       const fromCell = nodePath.node;
       const toCell = nodePath.nextNode;
@@ -163,9 +164,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     await new Promise((r) => setTimeout(r, 1000));
 
-    for (let i = 0; i < bestPath.length; i++) {
+    for (let i = 0; i < this.bestPath.length; i++) {
 
-      const nodePath = bestPath[i];
+      const nodePath = this.bestPath[i];
 
       const fromCell = nodePath.node;
       const toCell = nodePath.nextNode;
@@ -201,6 +202,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       await new Promise((r) => setTimeout(r, this.animationSpeed));
     }
-    this.store.dispatch(endAnimation());
+
+    this.store.dispatch(animateMazeComplete());
   }
 }

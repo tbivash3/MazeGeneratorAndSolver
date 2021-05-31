@@ -1,9 +1,13 @@
 import { NodePath } from "../algorithms/utility/Node";
 
 export interface state {
-    mazeAlgorithm: string,
-    pathAlgorithm: string,
+    animateButtonText: string,
     animationSpeed: number,
+    isAnimating: boolean,
+
+    animateMaze: boolean,
+
+    animatePath: boolean,
 
     mazeWidth: number,
     mazeHeight: number,
@@ -13,8 +17,13 @@ export interface state {
 
     startAnimation: boolean,
     reset: boolean,
-    isAnimating: boolean,
-    isAlgorithmSet: boolean,
+
+    isMazeAlgorithmSet: boolean,
+
+    isPathAlgorithmSet: boolean,
+
+    isMazeGenerated: boolean,
+
     traversalArray: number[][],
     searchPaths: NodePath[],
     bestPath: NodePath[],

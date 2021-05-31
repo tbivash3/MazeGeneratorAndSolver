@@ -5,19 +5,23 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-flat-button color="accent" (click)="bfs()">
+    <button mat-flat-button color="accent" (click)="bfs()"
+        [disabled]="!(isMazeGenerated$ | async) || (isAnimating$ | async)">
         Breadth First Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="dfs()">
+    <button mat-flat-button color="accent" (click)="dfs()"
+        [disabled]="!(isMazeGenerated$ | async) || (isAnimating$ | async)">
         Depth First Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="aStar()">
+    <button mat-flat-button color="accent" (click)="aStar()"
+        [disabled]="!(isMazeGenerated$ | async) || (isAnimating$ | async)">
         A* Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="greedy()">
+    <button mat-flat-button color="accent" (click)="greedy()"
+        [disabled]="!(isMazeGenerated$ | async) || (isAnimating$ | async)">
         Greedy Best First Search
     </button>
 </mat-expansion-panel>

@@ -1,6 +1,6 @@
 <div id="buttonContainer">
     <button mat-flat-button color="warn" [disabled]="(isAnimating$ | async) || !(isAlgorithmSet$ | async)"
-        (click)="animateMazeGeneration()">
+        (click)="startAnimation()">
         Animate
     </button>
     <button mat-flat-button color="warn" [disabled]="isAnimating$ | async" (click)="resetAll()">Reset</button>

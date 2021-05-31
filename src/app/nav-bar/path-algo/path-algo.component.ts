@@ -5,7 +5,7 @@ import { AStar } from 'src/app/algorithms/pathFinder/AStar';
 import { BreadthFirstSearch } from 'src/app/algorithms/pathFinder/BreadthFirstSearch';
 import { DepthFirstSearch } from 'src/app/algorithms/pathFinder/DepthFirstSearch';
 import { GreedyBestFirstSearch } from 'src/app/algorithms/pathFinder/GreedyBestFirstSearch';
-import { setBestPath, setSearchPath } from 'src/app/state/actions';
+import { createPath } from 'src/app/state/actions';
 import { state } from 'src/app/state/state';
 
 @Component({
@@ -25,7 +25,7 @@ export class PathAlgoComponent implements OnInit {
 
   isAnimating$!: Observable<boolean>;
 
-  isAlgorithmSet$!: Observable<boolean>;
+  isMazeGenerated$!: Observable<boolean>;
 
   traversalArray: number[][] = [];
 
@@ -38,40 +38,32 @@ export class PathAlgoComponent implements OnInit {
   ngOnInit(): void {
     this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
-    this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
-    this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isAlgorithmSet);
     this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
+    this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
+    this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
   }
 
   bfs() {
     let paths = this.breadthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
-    this.store.dispatch(setSearchPath({ array: paths.searchPath }));
-    this.store.dispatch(setBestPath({ array: paths.bestPath }));
-
+    this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
     this.currentPathAlgorithmText = "Breadth First Search";
   }
 
   dfs() {
     let paths = this.depthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
-    this.store.dispatch(setSearchPath({ array: paths.searchPath }));
-    this.store.dispatch(setBestPath({ array: paths.bestPath }));
-
+    this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }))
     this.currentPathAlgorithmText = "Depth First Search";
   }
 
   aStar() {
     let paths = this.aStarSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
-    this.store.dispatch(setSearchPath({ array: paths.searchPath }));
-    this.store.dispatch(setBestPath({ array: paths.bestPath }));
-
+    this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
     this.currentPathAlgorithmText = "A* First Search";
   }
 
   greedy() {
     let paths = this.greedyBestFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
-    this.store.dispatch(setSearchPath({ array: paths.searchPath }));
-    this.store.dispatch(setBestPath({ array: paths.bestPath }));
-
+    this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
     this.currentPathAlgorithmText = "Greedy Best First Search";
   }
 }
