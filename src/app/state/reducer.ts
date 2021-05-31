@@ -1,21 +1,29 @@
 import { Action, createReducer, on, State } from '@ngrx/store';
-import { changeAnimationSpeed, changeMazeWidth, changeMazeHeight, resetMaze, setMazeMaxWidth, setMazeMaxHeight, createMaze, animateMaze, animateMazeComplete, createPath, animatePath, animatePathComplete } from './actions';
+import { changeAnimationSpeed, changeMazeWidth, changeMazeHeight, resetMaze, setMazeMaxWidth, setMazeMaxHeight, createMaze, animateMaze, animateMazeComplete, createPath, animatePath, animatePathComplete, resetPath } from './actions';
 import { state } from './state';
 
 export const initialState: state = {
     animateMaze: false,
     animatePath: false,
+
     animateButtonText: 'Animate',
+    resetButtonText: 'Reset',
+
     animationSpeed: 4,
     mazeWidth: 0,
     mazeHeight: 0,
     mazeMaxWidth: 0,
     mazeMaxHeight: 0,
-    reset: false,
+
+    resetPath: false,
+    resetMaze: false,
+
     isAnimating: false,
     isMazeAlgorithmSet: false,
     isPathAlgorithmSet: false,
     isMazeGenerated: false,
+    isPathGenerated: false,
+
     traversalArray: [],
     searchPaths: [],
     bestPath: [],
@@ -27,19 +35,26 @@ const _appReducer = createReducer(
 
     on(animateMaze, (state) => ({ ...state, isAnimating: true, isMazeGenerated: true, animateMaze: true })),
 
-    on(animateMazeComplete, (state) => ({ ...state, isAnimating: false, animateMaze: false, animateButtonText: 'Animate' })),
+    on(animateMazeComplete, (state) => ({ ...state, isAnimating: false, isMazeAlgorithmSet: false, animateMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset Maze' })),
 
     on(createPath, (state, { searchPath, bestPath }) => ({ ...state, searchPaths: searchPath, bestPath, isPathAlgorithmSet: true, animateButtonText: 'Animate Path' })),
 
-    on(animatePath, (state) => ({ ...state, animatePath: true, isAnimating: true })),
+    on(animatePath, (state) => ({ ...state, animatePath: true, isAnimating: true, isPathGenerated: true })),
 
-    on(animatePathComplete, (state) => ({ ...state, animatePath: false, isAnimating: false, animateButtonText: 'Animate' })),
+    on(animatePathComplete, (state) => ({ ...state, isPathAlgorithmSet: false, animatePath: false, isAnimating: false, animateButtonText: 'Animate', resetButtonText: 'Reset Path' })),
 
     on(changeAnimationSpeed, (state, { speed }) => ({ ...state, animationSpeed: speed })),
+
     on(changeMazeWidth, (state, { width }) => ({ ...state, mazeWidth: width })),
+
     on(changeMazeHeight, (state, { height }) => ({ ...state, mazeHeight: height })),
-    on(resetMaze, (state, { reset }) => ({ ...state, reset: reset })),
+
+    on(resetMaze, (state) => ({ ...state, resetMaze: true })),
+
+    on(resetPath, (state) => ({ ...state, resetPath: true })),
+
     on(setMazeMaxWidth, (state, { width }) => ({ ...state, mazeMaxWidth: width })),
+
     on(setMazeMaxHeight, (state, { height }) => ({ ...state, mazeMaxHeight: height })),
 )
 

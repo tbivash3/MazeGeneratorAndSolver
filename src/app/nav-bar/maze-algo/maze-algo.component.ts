@@ -19,9 +19,7 @@ export class MazeAlgoComponent implements OnInit {
 
   defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
 
-  isAnimating$!: Observable<boolean>;
-
-  isMazeAlgorithmSet$!: Observable<boolean>;
+  isMazeGenerated$!: Observable<boolean>;
 
   mazeWidth = 0;
 
@@ -37,8 +35,7 @@ export class MazeAlgoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
-    this.isMazeAlgorithmSet$ = this.store.select((state) => state.appStore.isMazeAlgorithmSet);
+    this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
     this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
   }

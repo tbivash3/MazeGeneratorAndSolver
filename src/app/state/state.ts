@@ -2,6 +2,8 @@ import { NodePath } from "../algorithms/utility/Node";
 
 export interface state {
     animateButtonText: string,
+    resetButtonText: string,
+
     animationSpeed: number,
     isAnimating: boolean,
 
@@ -13,11 +15,12 @@ export interface state {
     animateMaze: boolean,
     isMazeAlgorithmSet: boolean,
     isMazeGenerated: boolean,
-
-    reset: boolean,
+    resetMaze: boolean,
 
     isPathAlgorithmSet: boolean,
     animatePath: boolean,
+    resetPath: boolean,
+    isPathGenerated: boolean,
 
     traversalArray: number[][],
     searchPaths: NodePath[],

@@ -5,22 +5,19 @@
         </mat-panel-title>
 
     </mat-expansion-panel-header>
-    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isMazeAlgorithmSet$ | async"
-        (click)="createRandomizedDFSMaze()">
+    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createRandomizedDFSMaze()">
         Randomized Depth First
     </button>
-    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isMazeAlgorithmSet$ | async"
-        (click)="createBinarySearchMaze()">
+    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createBinarySearchMaze()">
         Binary Tree
     </button>
 
-    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isMazeAlgorithmSet$ | async"
+    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async"
         (click)="createRandomizedKruskalMaze()">
         Randomized Kruskal's
     </button>
 
-    <button mat-flat-button color="accent" [disabled]="isAnimating$ | async" [disabled]="isMazeAlgorithmSet$ | async"
-        (click)="createRandomizedPrimsMaze()">
+    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createRandomizedPrimsMaze()">
         Randomized Prim's
     </button>
 
