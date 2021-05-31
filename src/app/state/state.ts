@@ -5,24 +5,19 @@ export interface state {
     animationSpeed: number,
     isAnimating: boolean,
 
-    animateMaze: boolean,
-
-    animatePath: boolean,
-
     mazeWidth: number,
     mazeHeight: number,
-
     mazeMaxWidth: number,
     mazeMaxHeight: number,
 
-    startAnimation: boolean,
+    animateMaze: boolean,
+    isMazeAlgorithmSet: boolean,
+    isMazeGenerated: boolean,
+
     reset: boolean,
 
-    isMazeAlgorithmSet: boolean,
-
     isPathAlgorithmSet: boolean,
-
-    isMazeGenerated: boolean,
+    animatePath: boolean,
 
     traversalArray: number[][],
     searchPaths: NodePath[],

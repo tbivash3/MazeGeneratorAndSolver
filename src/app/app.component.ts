@@ -3,7 +3,7 @@ import { Helper } from './algorithms/utility/helper';
 import { NodePath } from './algorithms/utility/Node';
 import { Store } from '@ngrx/store';
 import { state } from './state/state';
-import { animateMazeComplete, changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
+import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
@@ -179,6 +179,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       await new Promise((r) => setTimeout(r, this.animationSpeed));
     }
+    this.store.dispatch(animatePathComplete());
   }
 
   async animateMazeGeneration() {

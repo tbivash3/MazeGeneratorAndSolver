@@ -11,6 +11,8 @@ import { state } from 'src/app/state/state';
 })
 export class ButtonContainerComponent implements OnInit {
 
+  animateText$!: Observable<string>;
+
   isAnimating$!: Observable<boolean>;
 
   isAlgorithmSet$!: Observable<boolean>;
@@ -22,6 +24,7 @@ export class ButtonContainerComponent implements OnInit {
   ngOnInit(): void {
     this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
     this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isMazeAlgorithmSet);
+    this.animateText$ = this.store.select((state) => state.appStore.animateButtonText);
     this.store.select(state => state.appStore.isPathAlgorithmSet).subscribe(val => this.isPathAlgorithmSet = val);
   }
 
