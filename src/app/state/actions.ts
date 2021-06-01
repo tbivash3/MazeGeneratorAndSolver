@@ -9,6 +9,8 @@ export const animateMazeComplete = createAction('[Maze Algo Component] Animate M
 
 export const resetMaze = createAction('[Maze Algo Component] Reset Maze');
 
+export const resetMazeComplete = createAction('[Maze Algo Component] Reset Maze Complete');
+
 export const createPath = createAction('[Path Algo Component] Create Path', props<{ searchPath: NodePath[], bestPath: NodePath[] }>());
 
 export const animatePath = createAction('[Path Algo Component] Animate Path');

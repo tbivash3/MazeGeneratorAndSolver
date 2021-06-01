@@ -3,7 +3,7 @@ import { Helper } from './algorithms/utility/helper';
 import { NodePath } from './algorithms/utility/Node';
 import { Store } from '@ngrx/store';
 import { state } from './state/state';
-import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeWidth, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
+import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeWidth, resetMazeComplete, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
@@ -55,6 +55,10 @@ export class AppComponent implements OnInit, AfterViewInit {
       if (val) this.animatePathFinder();
     });
 
+    this.store.select((state) => state.appStore.resetMaze).subscribe((val) => {
+      if (val) this.resetAll();
+    });
+
     this.store.select((state) => state.appStore.animationSpeed).subscribe(speed => {
       this.animationSpeed = speed;
     })
@@ -67,8 +71,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.setHeight(height);
     })
   }
-
-
 
   ngAfterViewInit(): void {
     this.setWidthData();
@@ -125,6 +127,8 @@ export class AppComponent implements OnInit, AfterViewInit {
       const ele = document.getElementById('box' + boxId);
       if (ele !== null) ele.className = 'box';
     }
+
+    this.store.dispatch(resetMazeComplete());
   }
 
   setWidth(width: number | null) {
