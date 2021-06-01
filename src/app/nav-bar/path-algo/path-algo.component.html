@@ -5,19 +5,23 @@
         </mat-panel-title>
     </mat-expansion-panel-header>
 
-    <button mat-flat-button color="accent" (click)="bfs()" [disabled]="isPathGenerated$! | async">
+    <button mat-flat-button color="accent" (click)="bfs()"
+        [disabled]="(isPathGenerated$ | async) || !(isMazeGenerated$ | async) || currentAlgorithm === BREADTH_FIRST_SEARCH">
         Breadth First Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="dfs()" [disabled]="isPathGenerated$! | async">
+    <button mat-flat-button color="accent" (click)="dfs()"
+        [disabled]="(isPathGenerated$ | async) || !(isMazeGenerated$ | async) || currentAlgorithm === DEPTH_FIRST_SEARCH">
         Depth First Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="aStar()" [disabled]="isPathGenerated$! | async">
+    <button mat-flat-button color="accent" (click)="aStar()"
+        [disabled]="(isPathGenerated$ | async) || !(isMazeGenerated$ | async) || currentAlgorithm === A_STAR_SEARCH">
         A* Search
     </button>
 
-    <button mat-flat-button color="accent" (click)="greedy()" [disabled]="isPathGenerated$! | async">
+    <button mat-flat-button color="accent" (click)="greedy()"
+        [disabled]="(isPathGenerated$ | async) || !(isMazeGenerated$ | async) || currentAlgorithm === GREEDY_BEST_FIRST_SEARCH">
         Greedy Best First Search
     </button>
 </mat-expansion-panel>

@@ -15,15 +15,26 @@ import { state } from 'src/app/state/state';
 })
 export class MazeAlgoComponent implements OnInit {
 
+  NONE = 0;
+
+  DEPTH_FIRST_SEARCH = 1;
+  BINARY_TREE = 2;
+  RANDOMIZED_KRUSKALS = 3;
+  RANDOMIZED_PRIMS = 4;
+
   currentMazeAlgorithmText = "Select Maze Generation Algorithm";
 
   defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
+
+  isAnimating$!: Observable<boolean>;
 
   isMazeGenerated$!: Observable<boolean>;
 
   mazeWidth = 0;
 
   mazeHeight = 0;
+
+  currentAlgorithm = this.NONE;
 
   traversalArray: number[][] = [];
 
@@ -35,6 +46,7 @@ export class MazeAlgoComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
     this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
     this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
@@ -52,6 +64,7 @@ export class MazeAlgoComponent implements OnInit {
     this.store.dispatch(createMaze({ array: this.traversalArray }));
 
     this.currentMazeAlgorithmText = "Randomized Depth First";
+    this.currentAlgorithm = this.DEPTH_FIRST_SEARCH;
   }
 
   createBinarySearchMaze() {
@@ -62,6 +75,7 @@ export class MazeAlgoComponent implements OnInit {
     this.store.dispatch(createMaze({ array: this.traversalArray }));
 
     this.currentMazeAlgorithmText = "Binary Tree";
+    this.currentAlgorithm = this.BINARY_TREE;
   }
 
   createRandomizedKruskalMaze() {
@@ -76,6 +90,7 @@ export class MazeAlgoComponent implements OnInit {
     this.store.dispatch(createMaze({ array: this.traversalArray }));
 
     this.currentMazeAlgorithmText = "Randomized Kruskal's";
+    this.currentAlgorithm = this.RANDOMIZED_KRUSKALS;
   }
 
   createRandomizedPrimsMaze() {
@@ -90,5 +105,6 @@ export class MazeAlgoComponent implements OnInit {
     this.store.dispatch(createMaze({ array: this.traversalArray }));
 
     this.currentMazeAlgorithmText = "Randomized Prim's"
+    this.currentAlgorithm = this.RANDOMIZED_PRIMS;
   }
 }

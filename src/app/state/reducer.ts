@@ -33,9 +33,9 @@ const _appReducer = createReducer(
     initialState,
     on(createMaze, (state, { array }) => ({ ...state, traversalArray: array, isMazeAlgorithmSet: true, animateButtonText: 'Animate Maze' })),
 
-    on(animateMaze, (state) => ({ ...state, isAnimating: true, isMazeGenerated: true, animateMaze: true })),
+    on(animateMaze, (state) => ({ ...state, isAnimating: true, animateMaze: true })),
 
-    on(animateMazeComplete, (state) => ({ ...state, isAnimating: false, isMazeAlgorithmSet: false, animateMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset Maze' })),
+    on(animateMazeComplete, (state) => ({ ...state, isMazeGenerated: true, isAnimating: false, isMazeAlgorithmSet: false, animateMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset Maze' })),
 
     on(createPath, (state, { searchPath, bestPath }) => ({ ...state, searchPaths: searchPath, bestPath, isPathAlgorithmSet: true, animateButtonText: 'Animate Path' })),
 

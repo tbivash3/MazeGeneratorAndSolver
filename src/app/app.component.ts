@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
   currentNumOfBoxRow = 0;
-  maxNumOfBoxColumn = 55;
+  maxNumOfBoxColumn = 60;
   maxNumOfBoxRow = 0;
 
   mazeWidthInPx = 500;

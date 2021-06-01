@@ -15,6 +15,15 @@ import { state } from 'src/app/state/state';
 })
 export class PathAlgoComponent implements OnInit {
 
+  NONE = 0;
+
+  BREADTH_FIRST_SEARCH = 1;
+  DEPTH_FIRST_SEARCH = 2;
+  A_STAR_SEARCH = 3;
+  GREEDY_BEST_FIRST_SEARCH = 4;
+
+  currentAlgorithm = this.NONE;
+
   currentPathAlgorithmText = "Select Path Finding Algorithm";
 
   defaultPathAlgorithmText = "Select Path Finding Algorithm";
@@ -24,6 +33,8 @@ export class PathAlgoComponent implements OnInit {
   mazeHeight!: number;
 
   isPathGenerated$!: Observable<boolean>
+
+  isMazeGenerated$!: Observable<boolean>;
 
   traversalArray: number[][] = [];
 
@@ -35,6 +46,7 @@ export class PathAlgoComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
+    this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
     this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
     this.isPathGenerated$ = this.store.select((state) => state.appStore.isPathGenerated);
@@ -44,23 +56,27 @@ export class PathAlgoComponent implements OnInit {
     let paths = this.breadthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
     this.currentPathAlgorithmText = "Breadth First Search";
+    this.currentAlgorithm = this.BREADTH_FIRST_SEARCH;
   }
 
   dfs() {
     let paths = this.depthFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }))
     this.currentPathAlgorithmText = "Depth First Search";
+    this.currentAlgorithm = this.DEPTH_FIRST_SEARCH;
   }
 
   aStar() {
     let paths = this.aStarSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
-    this.currentPathAlgorithmText = "A* First Search";
+    this.currentPathAlgorithmText = "A* Search";
+    this.currentAlgorithm = this.A_STAR_SEARCH;
   }
 
   greedy() {
     let paths = this.greedyBestFirstSearch.findPath(this.mazeWidth, this.mazeHeight, this.traversalArray);
     this.store.dispatch(createPath({ searchPath: paths.searchPath, bestPath: paths.bestPath }));
     this.currentPathAlgorithmText = "Greedy Best First Search";
+    this.currentAlgorithm = this.GREEDY_BEST_FIRST_SEARCH;
   }
 }

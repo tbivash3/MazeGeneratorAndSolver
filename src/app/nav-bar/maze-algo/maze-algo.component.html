@@ -5,19 +5,26 @@
         </mat-panel-title>
 
     </mat-expansion-panel-header>
-    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createRandomizedDFSMaze()">
+    <button mat-flat-button color="accent"
+        [disabled]="(isAnimating$ | async) || currentAlgorithm === DEPTH_FIRST_SEARCH || (isMazeGenerated$ | async)"
+        (click)="createRandomizedDFSMaze()">
         Randomized Depth First
     </button>
-    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createBinarySearchMaze()">
+    <button mat-flat-button color="accent"
+        [disabled]="(isAnimating$ | async) || currentAlgorithm === BINARY_TREE || (isMazeGenerated$ | async)"
+        (click)="createBinarySearchMaze()">
         Binary Tree
     </button>
 
-    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async"
+    <button mat-flat-button color="accent"
+        [disabled]="(isAnimating$ | async) || currentAlgorithm === RANDOMIZED_KRUSKALS || (isMazeGenerated$ | async)"
         (click)="createRandomizedKruskalMaze()">
         Randomized Kruskal's
     </button>
 
-    <button mat-flat-button color="accent" [disabled]="isMazeGenerated$ | async" (click)="createRandomizedPrimsMaze()">
+    <button mat-flat-button color="accent"
+        [disabled]="(isAnimating$ | async) || currentAlgorithm === RANDOMIZED_PRIMS || (isMazeGenerated$ | async)"
+        (click)="createRandomizedPrimsMaze()">
         Randomized Prim's
     </button>
 
