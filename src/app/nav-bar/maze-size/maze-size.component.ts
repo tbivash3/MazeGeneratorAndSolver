@@ -14,7 +14,9 @@ export class MazeSizeComponent implements OnInit {
 
   isAnimating$!: Observable<boolean>;
 
-  isAlgorithmSet$!: Observable<boolean>;
+  isMazeGenerated$!: Observable<boolean>;
+
+  isPathGenerated$!: Observable<boolean>;
 
   mazeWidth$!: Observable<number>;
 
@@ -28,7 +30,8 @@ export class MazeSizeComponent implements OnInit {
 
   ngOnInit(): void {
     this.isAnimating$ = this.store.select((state) => state.appStore.isAnimating);
-    this.isAlgorithmSet$ = this.store.select((state) => state.appStore.isMazeAlgorithmSet);
+    this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
+    this.isPathGenerated$ = this.store.select((state) => state.appStore.isPathGenerated);
     this.mazeWidth$ = this.store.select((state) => state.appStore.mazeWidth);
     this.mazeHeight$ = this.store.select((state) => state.appStore.mazeHeight);
     this.mazeMaxWidth$ = this.store.select((state) => state.appStore.mazeMaxWidth);
