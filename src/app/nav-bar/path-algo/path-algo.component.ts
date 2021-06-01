@@ -36,6 +36,8 @@ export class PathAlgoComponent implements OnInit {
 
   isMazeGenerated$!: Observable<boolean>;
 
+  isAnimating$!: Observable<boolean>;
+
   traversalArray: number[][] = [];
 
   constructor(private store: Store<{ appStore: state }>,
@@ -50,6 +52,13 @@ export class PathAlgoComponent implements OnInit {
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
     this.store.select((state) => state.appStore.traversalArray).subscribe(array => this.traversalArray = array);
     this.isPathGenerated$ = this.store.select((state) => state.appStore.isPathGenerated);
+    this.isAnimating$ = this.store.select(state => state.appStore.isAnimating);
+    this.store.select(state => state.appStore.resetPath).subscribe(val => {
+      if (val) this.currentAlgorithm = this.NONE;
+    })
+    this.store.select(state => state.appStore.resetMaze).subscribe(val => {
+      if (val) this.currentAlgorithm = this.NONE;
+    })
   }
 
   bfs() {

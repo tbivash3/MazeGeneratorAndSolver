@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import { animateMaze, animatePath, resetMaze } from 'src/app/state/actions';
+import { animateMaze, animatePath, resetMaze, resetPath } from 'src/app/state/actions';
 import { state } from 'src/app/state/state';
 
 @Component({
@@ -46,6 +46,11 @@ export class ButtonContainerComponent implements OnInit {
   }
 
   resetAll() {
-    this.store.dispatch(resetMaze());
+    if (this.isPathGenerated) {
+      this.store.dispatch(resetPath());
+    }
+    else {
+      this.store.dispatch(resetMaze());
+    }
   }
 }

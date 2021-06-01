@@ -50,6 +50,9 @@ export class MazeAlgoComponent implements OnInit {
     this.isMazeGenerated$ = this.store.select((state) => state.appStore.isMazeGenerated);
     this.store.select((state) => state.appStore.mazeWidth).subscribe(width => this.mazeWidth = width);
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
+    this.store.select(state => state.appStore.resetMaze).subscribe(val => {
+      if (val) this.currentAlgorithm = this.NONE;
+    })
   }
 
   createRandomizedDFSMaze() {

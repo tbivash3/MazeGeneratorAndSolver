@@ -19,6 +19,8 @@ export const animatePathComplete = createAction('[Path Algo Component] Animate P
 
 export const resetPath = createAction('[Path Algo Component] Reset Path');
 
+export const resetPathComplete = createAction('[Path Algo Component] Reset Path Complete');
+
 export const changeAnimationSpeed = createAction('[Animation Speed Component] Change Animation Speed', props<{ speed: number }>());
 
 export const changeMazeWidth = createAction('[Maze Size Component] Change Maze Width', props<{ width: number }>());

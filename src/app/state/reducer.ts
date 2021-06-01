@@ -1,5 +1,5 @@
 import { Action, createReducer, on, State } from '@ngrx/store';
-import { changeAnimationSpeed, changeMazeWidth, changeMazeHeight, resetMaze, setMazeMaxWidth, setMazeMaxHeight, createMaze, animateMaze, animateMazeComplete, createPath, animatePath, animatePathComplete, resetPath, resetMazeComplete } from './actions';
+import { changeAnimationSpeed, changeMazeWidth, changeMazeHeight, resetMaze, setMazeMaxWidth, setMazeMaxHeight, createMaze, animateMaze, animateMazeComplete, createPath, animatePath, animatePathComplete, resetPath, resetMazeComplete, resetPathComplete } from './actions';
 import { state } from './state';
 
 export const initialState: state = {
@@ -51,9 +51,11 @@ const _appReducer = createReducer(
 
     on(resetMaze, (state) => ({ ...state, resetMaze: true })),
 
-    on(resetMazeComplete, (state) => ({ ...state, isPathAlgorithmSet: false, resetMaze: false, animateButtonText: 'Animate Maze', resetButtonText: 'Reset', isMazeGenerated: false, isMazeAlgorithmSet: true })),
+    on(resetMazeComplete, (state) => ({ ...state, isPathAlgorithmSet: false, resetMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset', isMazeGenerated: false, isMazeAlgorithmSet: false })),
 
     on(resetPath, (state) => ({ ...state, resetPath: true })),
+
+    on(resetPathComplete, (state) => ({ ...state, resetPath: false, resetButtonText: 'Reset Maze', animateButtonText: 'Animate', isPathAlgorithmSet: false, isPathGenerated: false })),
 
     on(setMazeMaxWidth, (state, { width }) => ({ ...state, mazeMaxWidth: width })),
 

@@ -3,7 +3,7 @@ import { Helper } from './algorithms/utility/helper';
 import { NodePath } from './algorithms/utility/Node';
 import { Store } from '@ngrx/store';
 import { state } from './state/state';
-import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeWidth, resetMazeComplete, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
+import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeWidth, resetMazeComplete, resetPathComplete, setMazeMaxHeight, setMazeMaxWidth } from './state/actions';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,6 @@ import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeW
 })
 export class AppComponent implements OnInit, AfterViewInit {
   title = 'MazeGeneratorAndSolver';
-
-  defaultAnimationSpeedText = "Change Animation Speed";
-  defaultMazeAlgorithmText = "Select Maze Generation Algorithm";
-  defaultPathAlgorithmText = "Select Path Finding Algorithm";
-  defaultMazeWidthHeightText = "Select Maze Width/Height";
 
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
@@ -56,7 +51,17 @@ export class AppComponent implements OnInit, AfterViewInit {
     });
 
     this.store.select((state) => state.appStore.resetMaze).subscribe((val) => {
-      if (val) this.resetAll();
+      if (val) {
+        this.resetAll();
+        this.store.dispatch(resetMazeComplete());
+      }
+    });
+
+    this.store.select((state) => state.appStore.resetPath).subscribe((val) => {
+      if (val) {
+        this.resetPath();
+        this.store.dispatch(resetPathComplete());
+      }
     });
 
     this.store.select((state) => state.appStore.animationSpeed).subscribe(speed => {
@@ -127,8 +132,6 @@ export class AppComponent implements OnInit, AfterViewInit {
       const ele = document.getElementById('box' + boxId);
       if (ele !== null) ele.className = 'box';
     }
-
-    this.store.dispatch(resetMazeComplete());
   }
 
   setWidth(width: number | null) {
@@ -187,7 +190,6 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   async animateMazeGeneration() {
-    this.resetAll();
     for (let i = 0; i < this.traversalArray.length; i++) {
       const traversal = this.traversalArray[i];
 
@@ -209,5 +211,36 @@ export class AppComponent implements OnInit, AfterViewInit {
     }
 
     this.store.dispatch(animateMazeComplete());
+  }
+
+  resetPath() {
+
+    for (let i = 0; i < this.searchPaths.length; i++) {
+
+      const nodePath = this.searchPaths[i];
+
+      const fromCell = nodePath.node;
+      const toCell = nodePath.nextNode;
+      const direction = nodePath.direction;
+
+      const directionStringArr = Helper.getDirectionStringArr(direction);
+
+      document.getElementById('box' + fromCell)?.classList.remove(directionStringArr[0] + 'border-collapse-all-paths');
+      document.getElementById('box' + toCell)?.classList.remove(directionStringArr[1] + 'border-collapse-all-paths');
+    }
+
+    for (let i = 0; i < this.bestPath.length; i++) {
+
+      const nodePath = this.bestPath[i];
+
+      const fromCell = nodePath.node;
+      const toCell = nodePath.nextNode;
+      const direction = nodePath.direction;
+
+      const directionStringArr = Helper.getDirectionStringArr(direction);
+
+      document.getElementById('box' + fromCell)?.classList.remove(directionStringArr[0] + 'border-collapse-best-path');
+      document.getElementById('box' + toCell)?.classList.remove(directionStringArr[1] + 'border-collapse-best-path');
+    }
   }
 }
