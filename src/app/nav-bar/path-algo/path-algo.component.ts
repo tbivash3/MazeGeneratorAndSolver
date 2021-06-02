@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { AStar } from 'src/app/algorithms/pathFinder/AStar';
@@ -58,6 +59,15 @@ export class PathAlgoComponent implements OnInit {
     })
     this.store.select(state => state.appStore.resetMaze).subscribe(val => {
       if (val) this.currentAlgorithm = this.NONE;
+    })
+  }
+
+  @ViewChild('mep')
+  mep!: MatExpansionPanel;
+
+  ngAfterViewInit(): void {
+    this.isAnimating$.subscribe(val => {
+      if (val) this.mep.expanded = false;
     })
   }
 

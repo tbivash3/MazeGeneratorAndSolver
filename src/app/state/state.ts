@@ -1,6 +1,9 @@
 import { NodePath } from "../algorithms/utility/Node";
 
 export interface state {
+
+    closePanel: number,
+
     animateButtonText: string,
     resetButtonText: string,
 

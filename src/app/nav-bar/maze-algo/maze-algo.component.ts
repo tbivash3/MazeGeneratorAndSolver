@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { BinaryTree } from 'src/app/algorithms/mazeGeneration/BinaryTree';
@@ -52,6 +53,15 @@ export class MazeAlgoComponent implements OnInit {
     this.store.select((state) => state.appStore.mazeHeight).subscribe(height => this.mazeHeight = height);
     this.store.select(state => state.appStore.resetMaze).subscribe(val => {
       if (val) this.currentAlgorithm = this.NONE;
+    })
+  }
+
+  @ViewChild('mep')
+  mep!: MatExpansionPanel;
+
+  ngAfterViewInit(): void {
+    this.isAnimating$.subscribe(val => {
+      if (val) this.mep.expanded = false;
     })
   }
 

@@ -3,6 +3,7 @@ import { changeAnimationSpeed, changeMazeWidth, changeMazeHeight, resetMaze, set
 import { state } from './state';
 
 export const initialState: state = {
+    closePanel: -1,
     animateMaze: false,
     animatePath: false,
 
@@ -33,9 +34,9 @@ const _appReducer = createReducer(
     initialState,
     on(createMaze, (state, { array }) => ({ ...state, traversalArray: array, isMazeAlgorithmSet: true, animateButtonText: 'Animate Maze' })),
 
-    on(animateMaze, (state) => ({ ...state, isAnimating: true, animateMaze: true })),
+    on(animateMaze, (state) => ({ ...state, isAnimating: true, animateMaze: true, closePanel: 1 })),
 
-    on(animateMazeComplete, (state) => ({ ...state, isMazeGenerated: true, isAnimating: false, isMazeAlgorithmSet: false, animateMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset Maze' })),
+    on(animateMazeComplete, (state) => ({ ...state, closePanel: -1, isMazeGenerated: true, isAnimating: false, isMazeAlgorithmSet: false, animateMaze: false, animateButtonText: 'Animate', resetButtonText: 'Reset Maze' })),
 
     on(createPath, (state, { searchPath, bestPath }) => ({ ...state, searchPaths: searchPath, bestPath, isPathAlgorithmSet: true, animateButtonText: 'Animate Path' })),
 

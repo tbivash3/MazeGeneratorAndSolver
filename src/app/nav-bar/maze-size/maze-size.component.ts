@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatExpansionPanel } from '@angular/material/expansion';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { changeMazeHeight, changeMazeWidth } from 'src/app/state/actions';
@@ -36,6 +37,15 @@ export class MazeSizeComponent implements OnInit {
     this.mazeHeight$ = this.store.select((state) => state.appStore.mazeHeight);
     this.mazeMaxWidth$ = this.store.select((state) => state.appStore.mazeMaxWidth);
     this.mazeMaxHeight$ = this.store.select((state) => state.appStore.mazeMaxHeight);
+  }
+
+  @ViewChild('mep')
+  mep!: MatExpansionPanel;
+
+  ngAfterViewInit(): void {
+    this.isAnimating$.subscribe(val => {
+      if (val) this.mep.expanded = false;
+    })
   }
 
   setHeight(height: number) {
