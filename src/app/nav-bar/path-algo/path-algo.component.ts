@@ -55,10 +55,16 @@ export class PathAlgoComponent implements OnInit {
     this.isPathGenerated$ = this.store.select((state) => state.appStore.isPathGenerated);
     this.isAnimating$ = this.store.select(state => state.appStore.isAnimating);
     this.store.select(state => state.appStore.resetPath).subscribe(val => {
-      if (val) this.currentAlgorithm = this.NONE;
+      if (val) {
+        this.currentAlgorithm = this.NONE;
+        this.currentPathAlgorithmText = this.defaultPathAlgorithmText;
+      }
     })
     this.store.select(state => state.appStore.resetMaze).subscribe(val => {
-      if (val) this.currentAlgorithm = this.NONE;
+      if (val) {
+        this.currentAlgorithm = this.NONE;
+        this.currentPathAlgorithmText = this.defaultPathAlgorithmText;
+      }
     })
   }
 

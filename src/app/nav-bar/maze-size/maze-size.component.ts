@@ -27,6 +27,8 @@ export class MazeSizeComponent implements OnInit {
 
   mazeMaxHeight$!: Observable<number>;
 
+  isMazeAlgorithmSet$!: Observable<boolean>;
+
   constructor(private store: Store<{ appStore: state }>) { }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class MazeSizeComponent implements OnInit {
     this.mazeHeight$ = this.store.select((state) => state.appStore.mazeHeight);
     this.mazeMaxWidth$ = this.store.select((state) => state.appStore.mazeMaxWidth);
     this.mazeMaxHeight$ = this.store.select((state) => state.appStore.mazeMaxHeight);
+    this.isMazeAlgorithmSet$ = this.store.select(state => state.appStore.isMazeAlgorithmSet);
   }
 
   @ViewChild('mep')

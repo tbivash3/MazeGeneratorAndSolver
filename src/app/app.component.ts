@@ -135,18 +135,12 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   setWidth(width: number | null) {
-    this.traversalArray = [];
-    this.resetAll();
     this.currentNumOfBoxColumn = Number(width);
-
     this.mazeWidthInPx = (this.boxWidthAndHeightInPx + 2) * this.currentNumOfBoxColumn;
-
     this.setLength();
   }
 
   setHeight(height: number | null) {
-    this.traversalArray = [];
-    this.resetAll();
     this.currentNumOfBoxRow = Number(height);
     this.setLength();
   }

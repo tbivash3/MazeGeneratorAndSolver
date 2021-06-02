@@ -8,8 +8,8 @@
     <div class="slide">
         <mat-label>Width</mat-label>
         <mat-slider #width
-            [disabled]="(isAnimating$ | async) || (isMazeGenerated$ | async) || (isPathGenerated$ | async)" min="5"
-            [max]="mazeMaxWidth$ | async" [value]="mazeWidth$ | async" (input)="setWidth(width.value || 0)">
+            [disabled]="(isAnimating$ | async) || (isMazeGenerated$ | async) || (isPathGenerated$ | async) || (isMazeAlgorithmSet$ | async)"
+            min="5" [max]="mazeMaxWidth$ | async" [value]="mazeWidth$ | async" (input)="setWidth(width.value || 0)">
         </mat-slider>
 
     </div>
@@ -17,7 +17,7 @@
     <div class="slide">
         <mat-label>Height</mat-label>
         <mat-slider #height
-            [disabled]="(isAnimating$ | async) || (isMazeGenerated$ | async) || (isPathGenerated$ | async)" min="5"
-            [max]="mazeMaxHeight$ | async" [value]="mazeHeight$ | async" (input)="setHeight(height.value || 0)">
+            [disabled]="(isAnimating$ | async) || (isMazeGenerated$ | async) || (isPathGenerated$ | async) || (isMazeAlgorithmSet$ | async)"
+            min="5" [max]="mazeMaxHeight$ | async" [value]="mazeHeight$ | async" (input)="setHeight(height.value || 0)">
         </mat-slider>
     </div>
