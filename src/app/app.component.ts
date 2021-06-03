@@ -11,7 +11,7 @@ import { animateMazeComplete, animatePathComplete, changeMazeHeight, changeMazeW
   styleUrls: ['./app.component.css'],
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'MazeGeneratorAndSolver';
+  title = 'MazePathFinder';
 
   panelOpenState = false;
   currentNumOfBoxColumn = 0;
@@ -81,6 +81,16 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.setWidthData();
     this.setHeightData();
     this.setLength();
+  }
+
+  setBackGroundImage(index: number) {
+    if (index === 0) {
+      return 'url(../assets/start.svg';
+    } else if (index === (this.currentNumOfBoxRow * this.currentNumOfBoxColumn - 1)) {
+      return 'url(../assets/end.svg';
+    }
+
+    return '';
   }
 
   setHeightData() {

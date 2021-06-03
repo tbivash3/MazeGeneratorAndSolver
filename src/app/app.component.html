@@ -1,11 +1,12 @@
 <div id="mainContainer">
   <app-nav-bar></app-nav-bar>
-
   <div id="mazeContainer" #mazeContainer>
     <div id="maze" [style.width.px]="mazeWidthInPx">
       <ng-container *ngFor="let i of length">
         <div id="{{ 'box' + i }}" class="box" [style.height.px]="boxWidthAndHeightInPx"
-          [style.width.px]="boxWidthAndHeightInPx"></div>
+          [style.width.px]="boxWidthAndHeightInPx" [style.backgroundImage]="setBackGroundImage(i)"
+          [style.backgroundSize]="'cover'" [style.backgroundImage.width]></div>
+
       </ng-container>
     </div>
   </div>
