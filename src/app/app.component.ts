@@ -177,7 +177,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     let ele = null;
 
-    for (let i = this.bestPath.length - 2; i >= 0; i--) {
+    for (let i = this.bestPath.length - 2; i > 0; i--) {
 
       if (ele) {
         ele.style.backgroundImage = '';
@@ -193,10 +193,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
-      ele = document.getElementById('box' + fromCell);
+      ele = document.getElementById('box' + toCell);
 
-      if (ele)
-        ele.style.backgroundImage = 'url(./assets/start.svg';
+      const backgroundImage = this.getBackgroundImage(direction);
+
+      if (ele) {
+        ele.style.backgroundImage = backgroundImage;
+      }
 
       await new Promise((r) => setTimeout(r, this.animationSpeed * 5));
     }
@@ -204,6 +207,22 @@ export class AppComponent implements OnInit, AfterViewInit {
       ele.style.backgroundImage = '';
     }
     this.store.dispatch(animatePathComplete());
+  }
+
+  getBackgroundImage(direction: number) {
+    let url = '';
+
+    if (direction == 1) {
+      url = 'url(./assets/start_up.svg)';
+    } else if (direction == 2) {
+      url = 'url(./assets/start_right.svg)';
+    } else if (direction == 3) {
+      url = 'url(./assets/start_down.svg)';
+    } else {
+      url = 'url(./assets/start_left.svg)';
+    }
+
+    return url;
   }
 
   async animateMazeGeneration() {
