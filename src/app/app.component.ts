@@ -85,9 +85,9 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   setBackGroundImage(index: number) {
     if (index === 0) {
-      return 'url(../assets/start.svg';
+      return 'url(./assets/start.svg';
     } else if (index === (this.currentNumOfBoxRow * this.currentNumOfBoxColumn - 1)) {
-      return 'url(../assets/end.svg';
+      return 'url(./assets/end.svg';
     }
 
     return '';
@@ -175,7 +175,13 @@ export class AppComponent implements OnInit, AfterViewInit {
 
     await new Promise((r) => setTimeout(r, 1000));
 
-    for (let i = 0; i < this.bestPath.length; i++) {
+    let ele = null;
+
+    for (let i = this.bestPath.length - 2; i >= 0; i--) {
+
+      if (ele) {
+        ele.style.backgroundImage = '';
+      }
 
       const nodePath = this.bestPath[i];
 
@@ -187,8 +193,15 @@ export class AppComponent implements OnInit, AfterViewInit {
 
       document.getElementById('box' + fromCell)?.classList.add(directionStringArr[0] + 'border-collapse-best-path');
       document.getElementById('box' + toCell)?.classList.add(directionStringArr[1] + 'border-collapse-best-path');
+      ele = document.getElementById('box' + fromCell);
 
-      await new Promise((r) => setTimeout(r, this.animationSpeed));
+      if (ele)
+        ele.style.backgroundImage = 'url(./assets/start.svg';
+
+      await new Promise((r) => setTimeout(r, this.animationSpeed * 5));
+    }
+    if (ele) {
+      ele.style.backgroundImage = '';
     }
     this.store.dispatch(animatePathComplete());
   }
